@@ -1,5 +1,4 @@
-#ifndef BOOK_DATATABLES_HPP
-#define BOOK_DATATABLES_HPP
+#pragma once
 
 #include <Book/ResourceIdentifiers.hpp>
 
@@ -63,4 +62,52 @@ std::vector<ProjectileData>	initializeProjectileData();
 std::vector<PickupData>		initializePickupData();
 std::vector<ParticleData>	initializeParticleData();
 
-#endif // BOOK_DATATABLES_HPP
+namespace INFINITYRUNNER {
+	struct RunnerData
+	{
+		float					health;
+		float					velocity;
+		float					acceleration;
+		Textures::ID			texture;
+		sf::IntRect				textureBoundary;
+		sf::Time				runInterval;
+		sf::Time				slideInterval;
+		sf::Time				jumpInterval;
+		sf::Time				cycleInterval;
+		sf::Time				abilityInterval;
+		std::vector<Direction>	slideDirections;
+		std::vector<Direction>	jumpDirections;
+		bool					hasRunAnimation;
+		bool					hasSlideAnimation;
+		bool					hasJumpAnimation;
+	};
+
+	struct ObstructionData
+	{
+		float					damage;
+		float					velocity;
+		float					acceleration;
+		Textures::ID			texture;
+		sf::IntRect				textureBoundary;
+		sf::Time				actInterval;
+		std::vector<Direction>	actDirections;
+		bool					hasActAnimation;
+	};
+
+	struct AbilityData
+	{
+		//std::function<void(Runner&)>	action;
+		float							velocity;
+		float							acceleration;
+		Textures::ID					texture;
+		sf::IntRect						textureBoundary;
+		sf::Time						actInterval;
+		std::vector<Direction>			actDirections;
+		bool							hasActAnimation;
+	};
+
+	std::vector<RunnerData>			initializeRunnerData();
+	std::vector<ObstructionData>	initializeObstructionData();
+	std::vector<AbilityData>		initializeAbilityData();
+	std::vector<ParticleData>		initializeParticleData();
+}

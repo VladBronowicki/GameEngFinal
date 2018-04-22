@@ -56,6 +56,14 @@
     <ClInclude Include="Include\Book\TitleState.hpp" />
     <ClInclude Include="Include\Book\Utility.hpp" />
     <ClInclude Include="Include\Book\World.hpp" />
+    <ClInclude Include="Include\GameObjects\Ability.hpp" />
+    <ClInclude Include="Include\GameObjects\Actor.hpp" />
+    <ClInclude Include="Include\GameObjects\Obstruction.hpp" />
+    <ClInclude Include="Include\GameObjects\Runner.hpp" />
+    <ClInclude Include="Include\Input\DefaultInput.hpp" />
+    <ClInclude Include="Include\Input\JoystickInput.hpp" />
+    <ClInclude Include="Include\Input\MouseInput.hpp" />
+    <ClInclude Include="Include\Input\PlayerInputDataType.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\Book\ResourceHolder.inl" />
@@ -76,6 +84,9 @@
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\GameOverState.cpp" />
     <ClCompile Include="Source\GameState.cpp" />
+    <ClCompile Include="Source\Input\DefaultInput.cpp" />
+    <ClCompile Include="Source\Input\JoystickInput.cpp" />
+    <ClCompile Include="Source\Input\MouseInput.cpp" />
     <ClCompile Include="Source\Label.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\MenuState.cpp" />

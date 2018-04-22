@@ -4,6 +4,10 @@
 #include <Book/Pickup.hpp>
 #include <Book/Particle.hpp>
 
+#include <GameObjects/Runner.hpp>
+#include <GameObjects/Obstruction.hpp>
+#include <GameObjects/Ability.hpp>
+
 
 // For std::bind() placeholders _1, _2, ...
 using namespace std::placeholders;
@@ -100,4 +104,68 @@ std::vector<ParticleData> initializeParticleData()
 	data[Particle::Smoke].lifetime = sf::seconds(4.f);
 
 	return data;
+}
+
+namespace INFINITYRUNNER {
+	std::vector<RunnerData> initializeRunnerData()
+	{
+		std::vector<RunnerData> data(Runner::TypeCount);
+
+		data[Runner::Scientist].health = 100.f;
+		data[Runner::Scientist].velocity = 200.f;
+		data[Runner::Scientist].acceleration = 0.f;
+		data[Runner::Scientist].texture = Textures::Actors;
+		data[Runner::Scientist].textureBoundary = sf::IntRect(0, 0, 48, 64);
+		data[Runner::Scientist].hasRunAnimation = true;
+		data[Runner::Scientist].hasSlideAnimation = true;
+		data[Runner::Scientist].hasJumpAnimation = true;
+
+		return data;
+	}
+
+	std::vector<ObstructionData> initializeObstructionData()
+	{
+		std::vector<ObstructionData> data(Obstruction::TypeCount);
+
+		data[Obstruction::Hurdle].damage = 10;
+		data[Obstruction::Hurdle].velocity = 0.f;
+		data[Obstruction::Hurdle].acceleration = 0.f;
+		data[Obstruction::Hurdle].texture = Textures::Actors;
+		data[Obstruction::Hurdle].textureBoundary = sf::IntRect(5, 5, 5, 5);
+
+		data[Obstruction::Limbo].damage = 10;
+		data[Obstruction::Limbo].velocity = 0.f;
+		data[Obstruction::Limbo].acceleration = 0.f;
+		data[Obstruction::Limbo].texture = Textures::Actors;
+		data[Obstruction::Limbo].textureBoundary = sf::IntRect(5, 5, 5, 5);
+
+		data[Obstruction::Fire].damage = 100;
+		data[Obstruction::Fire].velocity = 0.f;
+		data[Obstruction::Fire].acceleration = 0.f;
+		data[Obstruction::Fire].texture = Textures::Actors;
+		data[Obstruction::Fire].textureBoundary = sf::IntRect(5, 5, 5, 5);
+		data[Obstruction::Fire].actInterval = sf::seconds(3);
+		data[Obstruction::Fire].hasActAnimation = true;
+
+		return data;
+	}
+
+	std::vector<AbilityData> initializeAbilityData()
+	{
+		std::vector<AbilityData> data(Ability::TypeCount);
+
+		data[Ability::Regeneration].texture = Textures::Actors;
+		data[Ability::Regeneration].textureBoundary = sf::IntRect(5, 5, 5, 5);
+
+		data[Ability::Barrier].texture = Textures::Actors;
+		data[Ability::Barrier].textureBoundary = sf::IntRect(5, 5, 5, 5);
+
+		data[Ability::Destruction].texture = Textures::Actors;
+		data[Ability::Destruction].textureBoundary = sf::IntRect(5, 5, 5, 5);
+
+		data[Ability::FreezeTime].texture = Textures::Actors;
+		data[Ability::FreezeTime].textureBoundary = sf::IntRect(5, 5, 5, 5);
+
+		return data;
+	}
 }

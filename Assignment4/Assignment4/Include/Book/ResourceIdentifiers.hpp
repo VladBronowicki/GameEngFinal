@@ -14,6 +14,7 @@ namespace Textures
 {
 	enum ID
 	{
+		Actors,
 		Entities,
 		Jungle,
 		TitleScreen,
