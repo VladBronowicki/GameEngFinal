@@ -56,6 +56,7 @@
     <ClInclude Include="Include\Book\TitleState.hpp" />
     <ClInclude Include="Include\Book\Utility.hpp" />
     <ClInclude Include="Include\Book\World.hpp" />
+    <ClInclude Include="Include\DataClassifications\ElementClassification.hpp" />
     <ClInclude Include="Include\GameObjects\Ability.hpp" />
     <ClInclude Include="Include\GameObjects\Actor.hpp" />
     <ClInclude Include="Include\GameObjects\Obstruction.hpp" />

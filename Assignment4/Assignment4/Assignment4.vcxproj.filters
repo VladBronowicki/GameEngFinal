@@ -25,6 +25,9 @@
     <Filter Include="Source Files\GameObjects">
       <UniqueIdentifier>{ce3a488a-7b1b-418e-9099-518db63556c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\DataClassifications">
+      <UniqueIdentifier>{9f73d764-c6c0-4fca-9ca5-104ab74e1e2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Book\Aircraft.hpp">
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="Include\GameObjects\Ability.hpp">
       <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\DataClassifications\ElementClassification.hpp">
+      <Filter>Header Files\DataClassifications</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
