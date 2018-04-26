@@ -19,7 +19,7 @@ namespace INFINITYRUNNER {
 
 	/// Methods
 	protected:
-		virtual void	updateCurrent(sf::Time deltaTime, CommandQueue& commands);
+		virtual void	updateCurrent(sf::Time deltaTime, CommandQueue& commands, bool applyGravity);
 
 	public:
 		/// Motion
@@ -30,7 +30,8 @@ namespace INFINITYRUNNER {
 		void			setAcceleration(float accelrationX, float accelerationY);
 		sf::Vector2f	getAcceleration() const;
 
-		void			move();
+		/// Gravity
+		void			applyAcceleration(sf::Time deltaTime);
 
 		/// Status
 		float			getHealth() const;

@@ -70,6 +70,10 @@
     <None Include="Include\Book\Utility.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Include\GameObjects\Ability.cpp" />
+    <ClCompile Include="Include\GameObjects\Actor.cpp" />
+    <ClCompile Include="Include\GameObjects\Obstruction.cpp" />
+    <ClCompile Include="Include\GameObjects\Runner.cpp" />
     <ClCompile Include="Source\Aircraft.cpp" />
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\Application.cpp" />
