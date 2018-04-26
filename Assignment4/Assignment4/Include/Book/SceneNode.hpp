@@ -2,6 +2,8 @@
 #define BOOK_SCENENODE_HPP
 
 #include <Book/Category.hpp>
+//TODO: Temporary, must replace Scene Node!!!
+#include <DataClassifications/ElementClassification.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Time.hpp>

@@ -111,14 +111,32 @@ namespace INFINITYRUNNER {
 	{
 		std::vector<RunnerData> data(Runner::TypeCount);
 
-		data[Runner::Scientist].health = 100.f;
-		data[Runner::Scientist].velocity = 200.f;
+		data[Runner::Professor].health = 50.f;
+		data[Runner::Professor].velocity = 150.f;
+		data[Runner::Professor].acceleration = 0.f;
+		data[Runner::Professor].texture = Textures::Actors;
+		data[Runner::Professor].textureBoundary = sf::IntRect(0, 0, 48, 64);
+		data[Runner::Professor].hasRunAnimation = true;
+		data[Runner::Professor].hasSlideAnimation = true;
+		data[Runner::Professor].hasJumpAnimation = true;
+
+		data[Runner::Scientist].health = 50.f;
+		data[Runner::Scientist].velocity = 150.f;
 		data[Runner::Scientist].acceleration = 0.f;
 		data[Runner::Scientist].texture = Textures::Actors;
 		data[Runner::Scientist].textureBoundary = sf::IntRect(0, 0, 48, 64);
 		data[Runner::Scientist].hasRunAnimation = true;
 		data[Runner::Scientist].hasSlideAnimation = true;
 		data[Runner::Scientist].hasJumpAnimation = true;
+
+		data[Runner::Soldier].health = 50.f;
+		data[Runner::Soldier].velocity = 150.f;
+		data[Runner::Soldier].acceleration = 0.f;
+		data[Runner::Soldier].texture = Textures::Actors;
+		data[Runner::Soldier].textureBoundary = sf::IntRect(0, 0, 48, 64);
+		data[Runner::Soldier].hasRunAnimation = true;
+		data[Runner::Soldier].hasSlideAnimation = true;
+		data[Runner::Soldier].hasJumpAnimation = true;
 
 		return data;
 	}

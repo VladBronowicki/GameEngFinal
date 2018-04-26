@@ -18,8 +18,22 @@ namespace INFINITYRUNNER {
 	public:
 		enum Character
 		{
+			Professor,
 			Scientist,
+			Soldier,
 			TypeCount
+		};
+
+		enum AnimState
+		{
+			None,
+			Running,
+			Sliding,
+			Jumping,
+			Falling,
+			Using,
+			Dying,
+			AnimCount
 		};
 
 	/// Attributes
@@ -30,25 +44,32 @@ namespace INFINITYRUNNER {
 		Animation			mAnimRun;
 		Animation			mAnimSlide;
 		Animation			mAnimJump;
+		Animation			mAnimFall;
 		Animation			mAnimUse;
+		Animation			mAnimDie;
 		bool 				mShowAnimRun;
 		bool				mShowAnimSlide;
 		bool				mShowAnimJump;
+		bool				mShowAnimFall;
 		bool				mShowAnimUse;
+		bool				mShowAnimDeathSequence;
+		AnimState			mAnimationState;
 
 		/// Action
-		Command 			mUseAbility;
-		sf::Time			mAbilityCountdown;
-		bool 				mIsUsingAbility;
-		Command				mSlide;
-		sf::Time			mSlideCountdown;
-		bool				mIsSliding;
-		Command				mJump;
-		sf::Time			mJumpCountdown;
-		bool				mIsJumping;
 		Command				mRun;
 		sf::Time			mRunCountdown;
-		bool				mIsRunning;
+		//bool				mIsRunning;
+		Command				mSlide;
+		sf::Time			mSlideCountdown;
+		//bool				mIsSliding;
+		Command				mJump;
+		sf::Time			mJumpCountdown;
+		//bool				mIsJumping;
+		Command 			mUseAbility;
+		sf::Time			mAbilityCountdown;
+		//bool 				mIsUsingAbility;
+		sf::Time			mDeathSequenceCountdown;
+		//bool				mIsDying;
 
 		/// Cycling
 		Command				mCycleUp;
@@ -59,6 +80,7 @@ namespace INFINITYRUNNER {
 		bool				mIsCyclingDownAbility;
 
 		/// Status
+		sf::Time			mDeathCycle;
 		std::size_t			mDirectionalIndex;
 		TextNode*			mHealthMeter;
 		TextNode*			mAbilityMeter;
@@ -72,7 +94,7 @@ namespace INFINITYRUNNER {
 	/// Methods
 	private:
 		virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-		virtual void 			updateCurrent(sf::Time deltaTime, CommandQueue& commands);
+		virtual void 			updateCurrent(sf::Time deltaTime, CommandQueue& commands, bool applyGravity);
 		void					updateMovementPattern(sf::Time deltaTime);
 		void					checkPickupDrop(CommandQueue& commands); //TODO: not sure if needed...
 		void					checkAbilityUse(sf::Time deltaTime, CommandQueue& commands);
@@ -92,13 +114,14 @@ namespace INFINITYRUNNER {
 
 		/// Status
 		virtual unsigned int	getCategory() const;
-		virtual sf::FloatRect	getBoundingRect() const;
+		virtual sf::FloatRect	getCharacterBoundaries() const;
 		float					getMaxSpeed() const;
+		bool					isPlayerRunner() const;
 		bool					isAllyRunner() const;
 
 		/// Cleanup
+		virtual bool			isReadyToDie() const;
 		virtual void			removeSelf();
-		virtual bool			isDead() const;
 
 	};
 }
