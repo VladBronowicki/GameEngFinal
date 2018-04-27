@@ -26,14 +26,14 @@ namespace INFINITYRUNNER {
 
 		enum AnimState
 		{
-			None,
-			Running,
-			Sliding,
-			Jumping,
-			Falling,
-			Using,
-			Dying,
-			AnimCount
+			None		= 0,
+			Running		= 1 << 0,
+			Sliding		= 2 << 0,
+			Jumping		= 3 << 0,
+			Falling		= 4 << 0,
+			Using		= 5 << 0,
+			Dying		= 6 << 0,
+			AnimCount	= 7 << 0
 		};
 
 	/// Attributes
@@ -53,7 +53,7 @@ namespace INFINITYRUNNER {
 		bool				mShowAnimFall;
 		bool				mShowAnimUse;
 		bool				mShowAnimDeathSequence;
-		AnimState			mAnimationState;
+		AnimState			mActionState;
 
 		/// Action
 		Command				mRun;
@@ -82,6 +82,7 @@ namespace INFINITYRUNNER {
 		/// Status
 		sf::Time			mDeathCycle;
 		std::size_t			mDirectionalIndex;
+		//Ability*			mEquippedAbility;	TODO: can't figure out why this won't work yet
 		TextNode*			mHealthMeter;
 		TextNode*			mAbilityMeter;
 		float				mRunDistance;
@@ -96,11 +97,11 @@ namespace INFINITYRUNNER {
 		virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 		virtual void 			updateCurrent(sf::Time deltaTime, CommandQueue& commands, bool applyGravity);
 		void					updateMovementPattern(sf::Time deltaTime);
-		void					checkPickupDrop(CommandQueue& commands); //TODO: not sure if needed...
-		void					checkAbilityUse(sf::Time deltaTime, CommandQueue& commands);
+		void					checkAbilityDrop(CommandQueue& commands); //TODO: not sure if needed...
+		void					checkForAction(sf::Time deltaTime, CommandQueue& commands);
 
 		void					updateTexts();
-		void					updateRunnerAnimation();
+		void					updateRunnerAnimation(sf::Time deltaTime, int frames);
 
 	public:
 		/// Action

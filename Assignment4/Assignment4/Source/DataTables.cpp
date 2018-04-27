@@ -116,6 +116,11 @@ namespace INFINITYRUNNER {
 		data[Runner::Professor].acceleration = 0.f;
 		data[Runner::Professor].texture = Textures::Actors;
 		data[Runner::Professor].textureBoundary = sf::IntRect(0, 0, 48, 64);
+		data[Runner::Professor].runInterval = sf::milliseconds(500);
+		data[Runner::Professor].slideInterval = sf::milliseconds(1000);
+		data[Runner::Professor].jumpInterval = sf::milliseconds(1000);
+		data[Runner::Professor].cycleInterval = sf::milliseconds(1000);
+		data[Runner::Professor].abilityInterval = sf::seconds(10);
 		data[Runner::Professor].hasRunAnimation = true;
 		data[Runner::Professor].hasSlideAnimation = true;
 		data[Runner::Professor].hasJumpAnimation = true;
@@ -125,6 +130,11 @@ namespace INFINITYRUNNER {
 		data[Runner::Scientist].acceleration = 0.f;
 		data[Runner::Scientist].texture = Textures::Actors;
 		data[Runner::Scientist].textureBoundary = sf::IntRect(0, 0, 48, 64);
+		data[Runner::Scientist].runInterval = sf::milliseconds(650);
+		data[Runner::Scientist].slideInterval = sf::milliseconds(1000);
+		data[Runner::Scientist].jumpInterval = sf::milliseconds(1000);
+		data[Runner::Scientist].cycleInterval = sf::milliseconds(1000);
+		data[Runner::Scientist].abilityInterval = sf::seconds(10);
 		data[Runner::Scientist].hasRunAnimation = true;
 		data[Runner::Scientist].hasSlideAnimation = true;
 		data[Runner::Scientist].hasJumpAnimation = true;
@@ -134,6 +144,11 @@ namespace INFINITYRUNNER {
 		data[Runner::Soldier].acceleration = 0.f;
 		data[Runner::Soldier].texture = Textures::Actors;
 		data[Runner::Soldier].textureBoundary = sf::IntRect(0, 0, 48, 64);
+		data[Runner::Soldier].runInterval = sf::milliseconds(255);
+		data[Runner::Soldier].slideInterval = sf::milliseconds(1000);
+		data[Runner::Soldier].jumpInterval = sf::milliseconds(1000);
+		data[Runner::Soldier].cycleInterval = sf::milliseconds(1000);
+		data[Runner::Soldier].abilityInterval = sf::seconds(10);
 		data[Runner::Soldier].hasRunAnimation = true;
 		data[Runner::Soldier].hasSlideAnimation = true;
 		data[Runner::Soldier].hasJumpAnimation = true;
