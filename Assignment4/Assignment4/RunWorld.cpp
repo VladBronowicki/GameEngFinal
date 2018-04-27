@@ -69,6 +69,7 @@ void RunWorld::loadTextures()
 	mTextures.load(Textures::Run_BG_Building1, "Media/Textures/BG/background_builidngs_1.png");
 	mTextures.load(Textures::Run_BG_Building1, "Media/Textures/BG/background_builidngs_2.png");
 	mTextures.load(Textures::Run_BG_Building1, "Media/Textures/BG/background_builidngs_3.png");
+	
 	mTextures.load(Textures::Run_Character_1, "Media/Textures/Character/run_1.png");
 	mTextures.load(Textures::Run_Character_2, "Media/Textures/Character/run_2.png");
 	mTextures.load(Textures::Run_Character_3, "Media/Textures/Character/run_3.png");
@@ -81,6 +82,16 @@ void RunWorld::loadTextures()
 	mTextures.load(Textures::Run_Character_10, "Media/Textures/Character/run_10.png");
 	mTextures.load(Textures::Run_Character_11, "Media/Textures/Character/run_11.png");
 	mTextures.load(Textures::Run_Character_12, "Media/Textures/Character/run_12.png");
+	mTextures.load(Textures::Run_Character_Jump, "Media/Textures/Character/jump.png");
+	mTextures.load(Textures::Run_Character_Slide, "Media/Textures/Character/slide.png");
+
+	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
+	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
+	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
+	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
+	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
+
+	
 
 }
 
