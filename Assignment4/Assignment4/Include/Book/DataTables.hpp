@@ -78,8 +78,11 @@ namespace INFINITYRUNNER {
 		std::vector<Direction>	slideDirections;
 		std::vector<Direction>	jumpDirections;
 		bool					hasRunAnimation;
+		int						runAnimFrames;
 		bool					hasSlideAnimation;
+		int						slideAnimFrames;
 		bool					hasJumpAnimation;
+		int						jumpAnimFrames;
 	};
 
 	struct ObstructionData
@@ -92,6 +95,7 @@ namespace INFINITYRUNNER {
 		sf::Time				actInterval;
 		std::vector<Direction>	actDirections;
 		bool					hasActAnimation;
+		int						actAnimFrames;
 	};
 
 	struct AbilityData
@@ -109,5 +113,4 @@ namespace INFINITYRUNNER {
 	std::vector<RunnerData>			initializeRunnerData();
 	std::vector<ObstructionData>	initializeObstructionData();
 	std::vector<AbilityData>		initializeAbilityData();
-	std::vector<ParticleData>		initializeParticleData();
 }

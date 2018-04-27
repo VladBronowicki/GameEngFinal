@@ -14,7 +14,6 @@ namespace INFINITYRUNNER
 {
 	const std::vector<ObstructionData> Table = initializeObstructionData();
 
-
 }
 
 INFINITYRUNNER::Obstruction::Obstruction(ObjType type, const TextureHolder & textures, const FontHolder & fonts)
@@ -28,7 +27,9 @@ INFINITYRUNNER::Obstruction::Obstruction(ObjType type, const TextureHolder & tex
 	, mIsActing(false)
 	, mDirectionalIndex(0)
 {
-	//TODO: Implement initialization of textures and actions
+	// Center origin of textures
+	centerOrigin(mSprite);
+	centerOrigin(mAnim);
 }
 
 void INFINITYRUNNER::Obstruction::drawCurrent(sf::RenderTarget & target, sf::RenderStates states) const

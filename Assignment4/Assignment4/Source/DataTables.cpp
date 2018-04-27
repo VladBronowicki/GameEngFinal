@@ -122,8 +122,11 @@ namespace INFINITYRUNNER {
 		data[Runner::Professor].cycleInterval = sf::milliseconds(1000);
 		data[Runner::Professor].abilityInterval = sf::seconds(10);
 		data[Runner::Professor].hasRunAnimation = true;
+		data[Runner::Professor].runAnimFrames = 12;
 		data[Runner::Professor].hasSlideAnimation = true;
+		data[Runner::Professor].slideAnimFrames = 1;
 		data[Runner::Professor].hasJumpAnimation = true;
+		data[Runner::Professor].jumpAnimFrames = 1;
 
 		data[Runner::Scientist].health = 50.f;
 		data[Runner::Scientist].velocity = 150.f;
@@ -136,8 +139,11 @@ namespace INFINITYRUNNER {
 		data[Runner::Scientist].cycleInterval = sf::milliseconds(1000);
 		data[Runner::Scientist].abilityInterval = sf::seconds(10);
 		data[Runner::Scientist].hasRunAnimation = true;
+		data[Runner::Scientist].runAnimFrames = 12;
 		data[Runner::Scientist].hasSlideAnimation = true;
+		data[Runner::Scientist].slideAnimFrames = 1;
 		data[Runner::Scientist].hasJumpAnimation = true;
+		data[Runner::Scientist].jumpAnimFrames = 1;
 
 		data[Runner::Soldier].health = 50.f;
 		data[Runner::Soldier].velocity = 150.f;
@@ -150,8 +156,11 @@ namespace INFINITYRUNNER {
 		data[Runner::Soldier].cycleInterval = sf::milliseconds(1000);
 		data[Runner::Soldier].abilityInterval = sf::seconds(10);
 		data[Runner::Soldier].hasRunAnimation = true;
+		data[Runner::Soldier].runAnimFrames = 12;
 		data[Runner::Soldier].hasSlideAnimation = true;
+		data[Runner::Soldier].slideAnimFrames = 1;
 		data[Runner::Soldier].hasJumpAnimation = true;
+		data[Runner::Soldier].jumpAnimFrames = 1;
 
 		return data;
 	}
@@ -165,12 +174,18 @@ namespace INFINITYRUNNER {
 		data[Obstruction::Hurdle].acceleration = 0.f;
 		data[Obstruction::Hurdle].texture = Textures::Actors;
 		data[Obstruction::Hurdle].textureBoundary = sf::IntRect(5, 5, 5, 5);
+		data[Obstruction::Hurdle].actInterval = sf::Time::Zero;
+		data[Obstruction::Hurdle].hasActAnimation = false;
+		data[Obstruction::Hurdle].actAnimFrames = 1;
 
 		data[Obstruction::Limbo].damage = 10;
 		data[Obstruction::Limbo].velocity = 0.f;
 		data[Obstruction::Limbo].acceleration = 0.f;
 		data[Obstruction::Limbo].texture = Textures::Actors;
 		data[Obstruction::Limbo].textureBoundary = sf::IntRect(5, 5, 5, 5);
+		data[Obstruction::Limbo].actInterval = sf::Time::Zero;
+		data[Obstruction::Limbo].hasActAnimation = false;
+		data[Obstruction::Limbo].actAnimFrames = 1;
 
 		data[Obstruction::Fire].damage = 100;
 		data[Obstruction::Fire].velocity = 0.f;
@@ -179,6 +194,9 @@ namespace INFINITYRUNNER {
 		data[Obstruction::Fire].textureBoundary = sf::IntRect(5, 5, 5, 5);
 		data[Obstruction::Fire].actInterval = sf::seconds(3);
 		data[Obstruction::Fire].hasActAnimation = true;
+		data[Obstruction::Fire].actInterval = sf::Time::Zero;
+		data[Obstruction::Fire].hasActAnimation = false;
+		data[Obstruction::Fire].actAnimFrames = 1;
 
 		return data;
 	}
@@ -187,17 +205,33 @@ namespace INFINITYRUNNER {
 	{
 		std::vector<AbilityData> data(Ability::TypeCount);
 
+		data[Ability::Regeneration].velocity = 0.f;
+		data[Ability::Regeneration].acceleration = 0.f;
 		data[Ability::Regeneration].texture = Textures::Actors;
 		data[Ability::Regeneration].textureBoundary = sf::IntRect(5, 5, 5, 5);
+		data[Ability::Regeneration].actInterval = sf::Time::Zero;
+		data[Ability::Regeneration].hasActAnimation = false;
 
+		data[Ability::Barrier].velocity = 0.f;
+		data[Ability::Barrier].acceleration = 0.f;
 		data[Ability::Barrier].texture = Textures::Actors;
 		data[Ability::Barrier].textureBoundary = sf::IntRect(5, 5, 5, 5);
+		data[Ability::Barrier].actInterval = sf::Time::Zero;
+		data[Ability::Barrier].hasActAnimation = false;
 
+		data[Ability::Destruction].velocity = 0.f;
+		data[Ability::Destruction].acceleration = 0.f;
 		data[Ability::Destruction].texture = Textures::Actors;
 		data[Ability::Destruction].textureBoundary = sf::IntRect(5, 5, 5, 5);
+		data[Ability::Destruction].actInterval = sf::Time::Zero;
+		data[Ability::Destruction].hasActAnimation = false;
 
+		data[Ability::FreezeTime].velocity = 0.f;
+		data[Ability::FreezeTime].acceleration = 0.f;
 		data[Ability::FreezeTime].texture = Textures::Actors;
 		data[Ability::FreezeTime].textureBoundary = sf::IntRect(5, 5, 5, 5);
+		data[Ability::FreezeTime].actInterval = sf::Time::Zero;
+		data[Ability::FreezeTime].hasActAnimation = false;
 
 		return data;
 	}
