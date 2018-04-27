@@ -49,7 +49,7 @@ private:
 	enum Layer
 	{
 		Background,
-		Level,
+		Collision,
 		Foreground,
 		LayerCount
 	};
