@@ -65,6 +65,7 @@
     <ClInclude Include="Include\Input\JoystickInput.hpp" />
     <ClInclude Include="Include\Input\MouseInput.hpp" />
     <ClInclude Include="Include\Input\PlayerInputDataType.hpp" />
+    <ClInclude Include="RunWorld.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\Book\ResourceHolder.inl" />
@@ -75,6 +76,7 @@
     <ClCompile Include="Include\GameObjects\Actor.cpp" />
     <ClCompile Include="Include\GameObjects\Obstruction.cpp" />
     <ClCompile Include="Include\GameObjects\Runner.cpp" />
+    <ClCompile Include="RunWorld.cpp" />
     <ClCompile Include="Source\Aircraft.cpp" />
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\Application.cpp" />

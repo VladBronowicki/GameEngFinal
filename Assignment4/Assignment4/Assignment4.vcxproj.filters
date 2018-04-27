@@ -168,6 +168,9 @@
     <ClInclude Include="Include\DataClassifications\ElementClassification.hpp">
       <Filter>Header Files\DataClassifications</Filter>
     </ClInclude>
+    <ClInclude Include="RunWorld.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\Book\ResourceHolder.inl">
@@ -294,6 +297,9 @@
     </ClCompile>
     <ClCompile Include="Include\GameObjects\Runner.cpp">
       <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="RunWorld.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
