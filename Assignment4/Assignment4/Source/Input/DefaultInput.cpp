@@ -87,11 +87,11 @@ INFINITYRUNNER::DefaultInput::LevelStatus INFINITYRUNNER::DefaultInput::getLevel
 void INFINITYRUNNER::DefaultInput::initializeActions()
 {
 	//TODO: initialize successfully
-	mActionBinding[Slide].action = derivedAction<Runner>([](INFINITYRUNNER::Runner& r, sf::Time) { r.slide(); });
-	mActionBinding[Jump].action = derivedAction<Runner>([](INFINITYRUNNER::Runner& r, sf::Time) { r.jump(); });
-	mActionBinding[CycleDown].action = derivedAction<Runner>([](INFINITYRUNNER::Runner& r, sf::Time) { r.cycleAbility(false); });
-	mActionBinding[CycleUp].action = derivedAction<Runner>([](INFINITYRUNNER::Runner& r, sf::Time) { r.cycleAbility(true); });
-	mActionBinding[UseAbility].action = derivedAction<Runner>([](INFINITYRUNNER::Runner& r, sf::Time) { r.useAbility(); });
+	mActionBinding[Slide].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.slide(); });
+	mActionBinding[Jump].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.jump(); });
+	mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
+	mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
+	mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
 }
 
 bool INFINITYRUNNER::DefaultInput::isDynamicAction(INFINITYRUNNER::DefaultInput::Action action)

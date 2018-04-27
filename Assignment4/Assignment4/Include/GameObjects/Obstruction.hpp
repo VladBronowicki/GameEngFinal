@@ -46,7 +46,7 @@ namespace INFINITYRUNNER {
 		virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 		virtual void 			updateCurrent(sf::Time deltaTime, CommandQueue& commands);
 		void					updateMovementPattern(sf::Time deltaTime);
-		void					updateAnimation();
+		void					updateAnimation(sf::Time deltaTime, int frames);
 
 	public:
 		/// Action
@@ -55,13 +55,12 @@ namespace INFINITYRUNNER {
 
 		/// Status
 		virtual unsigned int	getCategory() const;
-		virtual sf::FloatRect	getBoundingRect() const;
+		virtual sf::FloatRect	getObstructionBoundaries() const;
 		float					getMaxSpeed() const;
 		float					getDamage() const;
 
 		/// Cleanup
 		virtual void			removeSelf();
-		virtual bool			isDead() const;
 
 	};
 }
