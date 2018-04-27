@@ -88,11 +88,11 @@ INFINITYRUNNER::MouseInput::LevelStatus INFINITYRUNNER::MouseInput::getLevelStat
 void INFINITYRUNNER::MouseInput::initializeActions()
 {
 	//TODO: initialize properly
-	//mActionBinding[Slide].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.slide(); });
-	//mActionBinding[Jump].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.jump(); });
-	//mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
-	//mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
-	//mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
+	mActionBinding[Slide].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.slide(); });
+	mActionBinding[Jump].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.jump(); });
+	mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
+	mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
+	mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
 }
 
 bool INFINITYRUNNER::MouseInput::isDynamicAction(INFINITYRUNNER::MouseInput::Action action)

@@ -30,7 +30,7 @@ INFINITYRUNNER::Runner::Runner(Character type, const TextureHolder & textures, c
 	, mShowAnimJump(false)
 	, mShowAnimUse(false)
 	, mShowAnimDeathSequence(false)
-	, mAnimationState(AnimState::None)
+	, mActionState(AnimState::None)
 	, mRun()
 	, mRunCountdown(sf::Time::Zero)
 	//, mIsRunning(false)
@@ -65,7 +65,7 @@ void INFINITYRUNNER::Runner::drawCurrent(sf::RenderTarget& target, sf::RenderSta
 	//Character Animations: Only one should be active at a time.
 	//  If no animation is active, a static sprite is rendered
 	//  by default.
-	switch (mAnimationState)
+	switch (mActionState)
 	{
 	case AnimState::Running:
 		target.draw(mAnimRun, states);
@@ -95,7 +95,7 @@ void INFINITYRUNNER::Runner::updateCurrent(sf::Time deltaTime, CommandQueue& com
 	//TODO: Update text status?
 	
 	//Update animations
-	switch (mAnimationState)
+	switch (mActionState)
 	{
 	case AnimState::Running:
 		mAnimRun.update(deltaTime);
@@ -125,61 +125,161 @@ void INFINITYRUNNER::Runner::updateCurrent(sf::Time deltaTime, CommandQueue& com
 void INFINITYRUNNER::Runner::updateMovementPattern(sf::Time deltaTime)
 {
 	//TODO: not implemented!
+	//  may not be required for this release if we have no ai runners
 }
 
-void INFINITYRUNNER::Runner::checkPickupDrop(CommandQueue & commands)
+void INFINITYRUNNER::Runner::checkAbilityDrop(CommandQueue & commands)
 {
 	//TODO: not implemented!
+	//  may not be required for this release if we have no ai runners
 }
 
-void INFINITYRUNNER::Runner::checkAbilityUse(sf::Time deltaTime, CommandQueue & commands)
+void INFINITYRUNNER::Runner::checkForAction(sf::Time deltaTime, CommandQueue & commands)
 {
-	//TODO: not implemented!
+	// ABILITY
+	// Check for ability ready
+	if ((AnimState::Using & mActionState) == AnimState::Using
+		&& mAbilityCountdown <= sf::Time::Zero)
+	{
+		// ready - use!
+		commands.push(mUseAbility);
+		mAbilityCountdown += Table[mCharacter].abilityInterval;
+		mActionState = AnimState(mActionState - AnimState::Using);
+	}
+	else if (mAbilityCountdown > sf::Time::Zero)
+	{
+		// not ready - hold!
+		mAbilityCountdown -= deltaTime;
+		mActionState = AnimState(mActionState - AnimState::Using);
+	}
+	// JUMP
+	// Check for jump action ready
+	if ((AnimState::Jumping & mActionState) == AnimState::Jumping
+		&& (AnimState::Falling & mActionState) != AnimState::Falling
+		&& mJumpCountdown <= sf::Time::Zero)
+	{
+		// ready - jump!
+		commands.push(mJump);
+		mJumpCountdown += Table[mCharacter].jumpInterval;
+		mActionState = AnimState(mActionState - AnimState::Jumping);
+	}
+	else if (mJumpCountdown > sf::Time::Zero)
+	{
+		// not ready - don't jump!
+		mJumpCountdown -= deltaTime;
+		mActionState = AnimState(mActionState - AnimState::Jumping);
+	}
+	// SLIDE
+	// Check for slide action ready
+	if ((AnimState::Sliding & mActionState) == AnimState::Sliding
+		&& (AnimState::Jumping & mActionState) != AnimState::Jumping
+		&& (AnimState::Falling & mActionState) != AnimState::Falling
+		&& mSlideCountdown <= sf::Time::Zero)
+	{
+		// ready - slide!
+		commands.push(mSlide);
+		mSlideCountdown += Table[mCharacter].slideInterval;
+		mActionState = AnimState(mActionState - AnimState::Sliding);
+	}
+	else if (mSlideCountdown > sf::Time::Zero)
+	{
+		// not ready - don't slide!
+		mSlideCountdown -= deltaTime;
+		mActionState = AnimState(mActionState - AnimState::Sliding);
+	}
 }
 
 void INFINITYRUNNER::Runner::updateTexts()
 {
-	//TODO: not implemented!
+	//TODO: we will need to test the orientation of text
+	// health
+	if (isDead())
+	{
+		mHealthMeter->setString("");
+		mAbilityMeter->setString("");
+		mDistanceMeter->setString("");
+	}
+	else
+	{
+		if (mHealthMeter)
+		{
+			mHealthMeter->setString(toString(getHealth()) + " ST");
+		}
+		if (mAbilityMeter)
+		{
+			//TODO: should display Ability.type (ability not yet implemented!)
+			//mAbilityMeter->setString(" Ability: " + toString(mEquippedAbility));
+		}
+		if (mDistanceMeter)
+		{
+			mDistanceMeter->setString("Distance: " + toString(mRunDistance));
+		}
+	}
 }
 
-void INFINITYRUNNER::Runner::updateRunnerAnimation()
+void INFINITYRUNNER::Runner::updateRunnerAnimation(sf::Time deltaTime, int frames)
 {
-	//TODO: not implemented!
+	//TODO: not tested!
+	if (Table[mCharacter].hasRunAnimation)
+	{
+		sf::IntRect textureBoundary = Table[mCharacter].textureBoundary;
+
+		// make sure runner is running
+		if ((AnimState::Running & mActionState) == AnimState::Running
+			&& (AnimState::Jumping & mActionState) != AnimState::Jumping
+			&& (AnimState::Falling & mActionState) != AnimState::Falling
+			&& (AnimState::Sliding & mActionState) != AnimState::Sliding
+			&& (AnimState::Using & mActionState) != AnimState::Using)
+		{
+			mRunCountdown -= deltaTime;
+			if (mRunCountdown < sf::Time::Zero)
+				mRunCountdown += Table[mCharacter].runInterval;
+		}
+
+		int currentFrame = mRunCountdown.asMilliseconds() * frames / Table[mCharacter].runInterval.asMilliseconds();
+	}
 }
 
 void INFINITYRUNNER::Runner::startRunning()
 {
-	//TODO: not implemented!
+	if ((AnimState::Running & mActionState) != AnimState::Running)
+		mActionState = AnimState(mActionState + AnimState::Running);
 }
 
 void INFINITYRUNNER::Runner::stopRunning()
 {
-	//TODO: not implemented!
+	if ((AnimState::Running & mActionState) == AnimState::Running)
+		mActionState = AnimState(mActionState - AnimState::Running);
 }
 
 void INFINITYRUNNER::Runner::slide()
 {
-	//TODO: not implemented!
+	if ((AnimState::Sliding & mActionState) != AnimState::Sliding)
+		mActionState = AnimState(mActionState + AnimState::Sliding);
 }
 
 void INFINITYRUNNER::Runner::jump()
 {
-	//TODO: not implemented!
+	if ((AnimState::Jumping & mActionState) != AnimState::Jumping)
+		mActionState = AnimState(mActionState + AnimState::Jumping);
 }
 
 void INFINITYRUNNER::Runner::cycleAbility(bool cycleUp)
 {
 	//TODO: not implemented!
+	//  to be removed - we will only allow one equip at a time
 }
 
 void INFINITYRUNNER::Runner::collectAbility(unsigned int count)
 {
 	//TODO: not implemented!
+	//  need to develop ability first
 }
 
 void INFINITYRUNNER::Runner::useAbility()
 {
 	//TODO: not implemented!
+	//  need to develop ability first
 }
 
 unsigned int INFINITYRUNNER::Runner::getCategory() const
