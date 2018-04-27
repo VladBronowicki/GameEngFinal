@@ -13,6 +13,7 @@ namespace INFINITYRUNNER
 		AbilityCollectible	= 5 << 0,
 		ParticleEffect		= 6 << 0,
 
-		Runner = PlayerRunner | FriendlyRunner | RivalRunner,
+		//TODO: Problem Code - this causes the input controllers to flip out :S
+		//Runner = PlayerRunner | FriendlyRunner | RivalRunner,
 	};
 }
