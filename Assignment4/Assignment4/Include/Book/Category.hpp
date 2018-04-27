@@ -20,6 +20,15 @@ namespace Category
 		Aircraft = PlayerAircraft | AlliedAircraft | EnemyAircraft,
 		Projectile = AlliedProjectile | EnemyProjectile,
 	};
+
+	enum RunType
+	{
+		Run_None = 0,
+		Run_Foreground = 1 << 0,
+		Run_Building = 1 << 1,
+		Run_Prop = 1 << 2,
+		Run_Player = 1 << 3,
+	};
 }
 
 #endif // BOOK_CATEGORY_HPP

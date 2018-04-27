@@ -49,6 +49,8 @@ private:
 	enum Layer
 	{
 		Background,
+		BackgroundA,
+		BackgroundB,
 		Collision,
 		Foreground,
 		LayerCount
