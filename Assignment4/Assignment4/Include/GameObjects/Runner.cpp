@@ -115,7 +115,7 @@ void INFINITYRUNNER::Runner::updateCurrent(sf::Time deltaTime, CommandQueue& com
 	case AnimState::Using:
 		mAnimDie.update(deltaTime);
 		break;
-	default:
+	default:;
 	}
 
 	// Update movement physics
