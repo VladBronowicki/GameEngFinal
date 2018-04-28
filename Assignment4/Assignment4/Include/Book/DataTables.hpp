@@ -70,19 +70,34 @@ namespace INFINITYRUNNER {
 		float					acceleration;
 		Textures::ID			texture;
 		sf::IntRect				textureBoundary;
+		std::vector<Textures::ID>	runFrames;
+		//Textures::ID			runFrame01;
+		//Textures::ID			runFrame02;
+		//Textures::ID			runFrame03;
+		//Textures::ID			runFrame04;
+		//Textures::ID			runFrame05;
+		//Textures::ID			runFrame06;
+		//Textures::ID			runFrame07;
+		//Textures::ID			runFrame08;
+		//Textures::ID			runFrame09;
+		//Textures::ID			runFrame10;
+		//Textures::ID			runFrame11;
+		//Textures::ID			runFrame12;
 		sf::Time				runInterval;
+		Textures::ID			slideFrame01;
 		sf::Time				slideInterval;
+		Textures::ID			jumpFrame01;
 		sf::Time				jumpInterval;
 		sf::Time				cycleInterval;
 		sf::Time				abilityInterval;
 		std::vector<Direction>	slideDirections;
 		std::vector<Direction>	jumpDirections;
 		bool					hasRunAnimation;
-		int						runAnimFrames;
+		//int						runAnimFrames;
 		bool					hasSlideAnimation;
-		int						slideAnimFrames;
+		//int						slideAnimFrames;
 		bool					hasJumpAnimation;
-		int						jumpAnimFrames;
+		//int						jumpAnimFrames;
 	};
 
 	struct ObstructionData

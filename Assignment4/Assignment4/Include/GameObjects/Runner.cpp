@@ -4,6 +4,7 @@
 #include <GameObjects/Ability.hpp>
 #include <Book/CommandQueue.hpp>
 #include <Book/ResourceHolder.hpp>
+#include <Book/Foreach.hpp>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
@@ -20,31 +21,28 @@ namespace INFINITYRUNNER
 INFINITYRUNNER::Runner::Runner(Character type, const TextureHolder & textures, const FontHolder & fonts)
 	: Actor()
 	, mCharacter(type)
-	, mSprite(textures.get(Table[type].texture), Table[type].textureBoundary)
-	, mAnimRun(textures.get(Textures::Actors))
-	, mAnimSlide(textures.get(Textures::Actors))
-	, mAnimJump(textures.get(Textures::Actors))
-	, mAnimUse(textures.get(Textures::Actors))
-	, mShowAnimRun(false)
-	, mShowAnimSlide(false)
-	, mShowAnimJump(false)
+	, mSprite(textures.get(Table[type].slideFrame01), Table[type].textureBoundary)
+	, mAnimRun()
+	, mCurrentRunFrame(0)
+	, mTotalRunFrames(Table[type].runFrames.size())
+	, mAnimSlide(textures.get(Table[type].slideFrame01), Table[type].textureBoundary)
+	, mAnimJump(textures.get(Table[type].jumpFrame01), Table[type].textureBoundary)
+	, mAnimUse(textures.get(Table[type].jumpFrame01), Table[type].textureBoundary)
+	, mShowAnimRun(true)
+	, mShowAnimSlide(true)
+	, mShowAnimJump(true)
 	, mShowAnimUse(false)
 	, mShowAnimDeathSequence(false)
 	, mActionState(AnimState::None)
 	, mRun()
 	, mRunCountdown(sf::Time::Zero)
-	//, mIsRunning(false)
 	, mSlide()
 	, mSlideCountdown(sf::Time::Zero)
-	//, mIsSliding(false)
 	, mJump()
 	, mJumpCountdown(sf::Time::Zero)
-	//, mIsJumping(false)
 	, mUseAbility()
 	, mAbilityCountdown(sf::Time::Zero)
-	//, mIsUsingAbility(false)
 	, mDeathSequenceCountdown(sf::Time::Zero)
-	//, mIsDying(false)
 	, mCycleDown()
 	, mCycleDownCountdown(sf::Time::Zero)
 	, mIsCyclingDownAbility(false)
@@ -57,7 +55,36 @@ INFINITYRUNNER::Runner::Runner(Character type, const TextureHolder & textures, c
 	, mRunDistance(0.f)
 	, mDistanceMeter(nullptr)
 {
-	//TODO: Implement initialization of textures and actions
+	// Center origin of sprite and animations
+	centerOrigin(mSprite);
+	// Initializes all the running frames from data table
+	for (unsigned int index = 0; index < Table[type].runFrames.size(); index++) {
+		mAnimRun.push_back(sf::Sprite (textures.get(Table[type].runFrames[index]), Table[type].textureBoundary));
+		centerOrigin(mAnimRun[index]);
+	}
+	centerOrigin(mAnimSlide);
+	centerOrigin(mAnimJump);
+	centerOrigin(mAnimFall);
+	centerOrigin(mAnimUse);
+	centerOrigin(mAnimDie);
+
+	// Attach displays
+	std::unique_ptr<TextNode> healthMeter(new TextNode(fonts, ""));
+	mHealthMeter = healthMeter.get();
+	attachChild(std::move(healthMeter));
+
+	//TODO: Abilities not yet implemented!
+	//std::unique_ptr<TextNode> abilityMeter(new TextNode(fonts, ""));
+	//abilityMeter->setPosition(0, 100);
+	//mAbilityMeter = abilityMeter.get();
+	//attachChild(std::move(abilityMeter));
+
+	std::unique_ptr<TextNode> distanceMeter(new TextNode(fonts, ""));
+	distanceMeter->setPosition(0, 50);
+	mDistanceMeter = distanceMeter.get();
+	attachChild(std::move(distanceMeter));
+
+	updateTexts();
 }
 
 void INFINITYRUNNER::Runner::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
@@ -68,7 +95,8 @@ void INFINITYRUNNER::Runner::drawCurrent(sf::RenderTarget& target, sf::RenderSta
 	switch (mActionState)
 	{
 	case AnimState::Running:
-		target.draw(mAnimRun, states);
+		//TODO: Needs testing (let's hope this works!)
+		target.draw(mAnimRun[mCurrentRunFrame], states);
 		break;
 	case AnimState::Dying:
 		target.draw(mAnimDie, states);
@@ -94,29 +122,29 @@ void INFINITYRUNNER::Runner::updateCurrent(sf::Time deltaTime, CommandQueue& com
 {
 	//TODO: Update text status?
 	
-	//Update animations
-	switch (mActionState)
-	{
-	case AnimState::Running:
-		mAnimRun.update(deltaTime);
-		break;
-	case AnimState::Dying:
-		mAnimDie.update(deltaTime);
-		break;
-	case AnimState::Sliding:
-		mAnimSlide.update(deltaTime);
-		break;
-	case AnimState::Jumping:
-		mAnimJump.update(deltaTime);
-		break;
-	case AnimState::Falling:
-		mAnimFall.update(deltaTime);
-		break;
-	case AnimState::Using:
-		mAnimDie.update(deltaTime);
-		break;
-	default:;
-	}
+	//Update animations (deprecated)
+	//switch (mActionState)
+	//{
+	//case AnimState::Running:
+	//	mAnimRun.update(deltaTime);
+	//	break;
+	//case AnimState::Dying:
+	//	mAnimDie.update(deltaTime);
+	//	break;
+	//case AnimState::Sliding:
+	//	mAnimSlide.update(deltaTime);
+	//	break;
+	//case AnimState::Jumping:
+	//	mAnimJump.update(deltaTime);
+	//	break;
+	//case AnimState::Falling:
+	//	mAnimFall.update(deltaTime);
+	//	break;
+	//case AnimState::Using:
+	//	mAnimDie.update(deltaTime);
+	//	break;
+	//default:;
+	//}
 
 	// Update movement physics
 	Actor::updateCurrent(deltaTime, commands, applyGravity);
@@ -217,7 +245,7 @@ void INFINITYRUNNER::Runner::updateTexts()
 	}
 }
 
-void INFINITYRUNNER::Runner::updateRunnerAnimation(sf::Time deltaTime, int frames)
+void INFINITYRUNNER::Runner::updateRunnerAnimation(sf::Time deltaTime)
 {
 	//TODO: not tested!
 	if (Table[mCharacter].hasRunAnimation)
@@ -236,7 +264,7 @@ void INFINITYRUNNER::Runner::updateRunnerAnimation(sf::Time deltaTime, int frame
 				mRunCountdown += Table[mCharacter].runInterval;
 		}
 
-		int currentFrame = mRunCountdown.asMilliseconds() * frames / Table[mCharacter].runInterval.asMilliseconds();
+		mCurrentRunFrame = mRunCountdown.asMilliseconds() * mTotalRunFrames / Table[mCharacter].runInterval.asMilliseconds();
 	}
 }
 
@@ -315,7 +343,7 @@ bool INFINITYRUNNER::Runner::isAllyRunner() const
 
 bool INFINITYRUNNER::Runner::isReadyToDie() const
 {
-	return isDead() && (mAnimDie.isFinished() || !mShowAnimDeathSequence);
+	return isDead();
 }
 
 void INFINITYRUNNER::Runner::removeSelf()

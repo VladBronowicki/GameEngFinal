@@ -2,7 +2,7 @@
 #include <Book/DataTables.hpp>
 #include <Book/Utility.hpp>
 #include <Book/CommandQueue.hpp>
-#include <Book/ResourceHolder.hpp>>
+#include <Book/ResourceHolder.hpp>
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>

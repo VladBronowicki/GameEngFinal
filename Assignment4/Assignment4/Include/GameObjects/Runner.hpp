@@ -41,12 +41,14 @@ namespace INFINITYRUNNER {
 		/// Visual
 		Character			mCharacter;
 		sf::Sprite			mSprite;
-		Animation			mAnimRun;
-		Animation			mAnimSlide;
-		Animation			mAnimJump;
-		Animation			mAnimFall;
-		Animation			mAnimUse;
-		Animation			mAnimDie;
+		std::vector<sf::Sprite>			mAnimRun;
+		int					mCurrentRunFrame;
+		int					mTotalRunFrames;
+		sf::Sprite			mAnimSlide;
+		sf::Sprite			mAnimJump;
+		sf::Sprite			mAnimFall;
+		sf::Sprite			mAnimUse;
+		sf::Sprite			mAnimDie;
 		bool 				mShowAnimRun;
 		bool				mShowAnimSlide;
 		bool				mShowAnimJump;
@@ -101,7 +103,7 @@ namespace INFINITYRUNNER {
 		void					checkForAction(sf::Time deltaTime, CommandQueue& commands);
 
 		void					updateTexts();
-		void					updateRunnerAnimation(sf::Time deltaTime, int frames);
+		void					updateRunnerAnimation(sf::Time deltaTime);
 
 	public:
 		/// Action

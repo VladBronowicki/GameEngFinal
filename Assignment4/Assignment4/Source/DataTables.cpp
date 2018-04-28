@@ -114,53 +114,131 @@ namespace INFINITYRUNNER {
 		data[Runner::Professor].health = 50.f;
 		data[Runner::Professor].velocity = 150.f;
 		data[Runner::Professor].acceleration = 0.f;
-		data[Runner::Professor].texture = Textures::Actors;
-		data[Runner::Professor].textureBoundary = sf::IntRect(0, 0, 48, 64);
-		data[Runner::Professor].runInterval = sf::milliseconds(500);
+		data[Runner::Professor].texture = Textures::Run_Character_1;
+		data[Runner::Professor].textureBoundary = sf::IntRect(0, 0, 413, 363);
+		data[Runner::Professor].runFrames = std::vector<Textures::ID>{ Textures::Run_Character_1
+																	 , Textures::Run_Character_2
+																	 , Textures::Run_Character_3
+																	 , Textures::Run_Character_4
+																	 , Textures::Run_Character_5
+																	 , Textures::Run_Character_6
+																	 , Textures::Run_Character_7
+																	 , Textures::Run_Character_8
+																	 , Textures::Run_Character_9
+																	 , Textures::Run_Character_10
+																	 , Textures::Run_Character_11
+																	 , Textures::Run_Character_12 };
+		//data[Runner::Professor].runFrame01 = Textures::Run_Character_1;
+		//data[Runner::Professor].runFrame02 = Textures::Run_Character_2;
+		//data[Runner::Professor].runFrame03 = Textures::Run_Character_3;
+		//data[Runner::Professor].runFrame04 = Textures::Run_Character_4;
+		//data[Runner::Professor].runFrame05 = Textures::Run_Character_5;
+		//data[Runner::Professor].runFrame06 = Textures::Run_Character_6;
+		//data[Runner::Professor].runFrame07 = Textures::Run_Character_7;
+		//data[Runner::Professor].runFrame08 = Textures::Run_Character_8;
+		//data[Runner::Professor].runFrame09 = Textures::Run_Character_9;
+		//data[Runner::Professor].runFrame10 = Textures::Run_Character_10;
+		//data[Runner::Professor].runFrame11 = Textures::Run_Character_11;
+		//data[Runner::Professor].runFrame12 = Textures::Run_Character_12;
+		data[Runner::Professor].runInterval = sf::milliseconds(1000);
+		data[Runner::Professor].slideFrame01 = Textures::Run_Character_Slide;
 		data[Runner::Professor].slideInterval = sf::milliseconds(1000);
+		data[Runner::Professor].jumpFrame01 = Textures::Run_Character_Jump;
 		data[Runner::Professor].jumpInterval = sf::milliseconds(1000);
 		data[Runner::Professor].cycleInterval = sf::milliseconds(1000);
 		data[Runner::Professor].abilityInterval = sf::seconds(10);
 		data[Runner::Professor].hasRunAnimation = true;
-		data[Runner::Professor].runAnimFrames = 12;
+		//data[Runner::Professor].runAnimFrames = 12;
 		data[Runner::Professor].hasSlideAnimation = true;
-		data[Runner::Professor].slideAnimFrames = 1;
+		//data[Runner::Professor].slideAnimFrames = 1;
 		data[Runner::Professor].hasJumpAnimation = true;
-		data[Runner::Professor].jumpAnimFrames = 1;
+		//data[Runner::Professor].jumpAnimFrames = 1;
 
 		data[Runner::Scientist].health = 50.f;
 		data[Runner::Scientist].velocity = 150.f;
 		data[Runner::Scientist].acceleration = 0.f;
-		data[Runner::Scientist].texture = Textures::Actors;
-		data[Runner::Scientist].textureBoundary = sf::IntRect(0, 0, 48, 64);
-		data[Runner::Scientist].runInterval = sf::milliseconds(650);
+		data[Runner::Scientist].texture = Textures::Run_Character_1;
+		data[Runner::Scientist].textureBoundary = sf::IntRect(0, 0, 413, 363);
+		data[Runner::Scientist].runFrames = std::vector<Textures::ID>{ Textures::Run_Character_1
+																	 , Textures::Run_Character_2
+																	 , Textures::Run_Character_3
+																	 , Textures::Run_Character_4
+																	 , Textures::Run_Character_5
+																	 , Textures::Run_Character_6
+																	 , Textures::Run_Character_7
+																	 , Textures::Run_Character_8
+																	 , Textures::Run_Character_9
+																	 , Textures::Run_Character_10
+																	 , Textures::Run_Character_11
+																	 , Textures::Run_Character_12 };
+		//data[Runner::Scientist].runFrame01 = Textures::Run_Character_1;
+		//data[Runner::Scientist].runFrame02 = Textures::Run_Character_2;
+		//data[Runner::Scientist].runFrame03 = Textures::Run_Character_3;
+		//data[Runner::Scientist].runFrame04 = Textures::Run_Character_4;
+		//data[Runner::Scientist].runFrame05 = Textures::Run_Character_5;
+		//data[Runner::Scientist].runFrame06 = Textures::Run_Character_6;
+		//data[Runner::Scientist].runFrame07 = Textures::Run_Character_7;
+		//data[Runner::Scientist].runFrame08 = Textures::Run_Character_8;
+		//data[Runner::Scientist].runFrame09 = Textures::Run_Character_9;
+		//data[Runner::Scientist].runFrame10 = Textures::Run_Character_10;
+		//data[Runner::Scientist].runFrame11 = Textures::Run_Character_11;
+		//data[Runner::Scientist].runFrame12 = Textures::Run_Character_12;
+		data[Runner::Scientist].runInterval = sf::milliseconds(1000);
+		data[Runner::Scientist].slideFrame01 = Textures::Run_Character_Slide;
 		data[Runner::Scientist].slideInterval = sf::milliseconds(1000);
+		data[Runner::Scientist].jumpFrame01 = Textures::Run_Character_Jump;
 		data[Runner::Scientist].jumpInterval = sf::milliseconds(1000);
 		data[Runner::Scientist].cycleInterval = sf::milliseconds(1000);
 		data[Runner::Scientist].abilityInterval = sf::seconds(10);
 		data[Runner::Scientist].hasRunAnimation = true;
-		data[Runner::Scientist].runAnimFrames = 12;
+		//data[Runner::Scientist].runAnimFrames = 12;
 		data[Runner::Scientist].hasSlideAnimation = true;
-		data[Runner::Scientist].slideAnimFrames = 1;
+		//data[Runner::Scientist].slideAnimFrames = 1;
 		data[Runner::Scientist].hasJumpAnimation = true;
-		data[Runner::Scientist].jumpAnimFrames = 1;
+		//data[Runner::Scientist].jumpAnimFrames = 1;
 
 		data[Runner::Soldier].health = 50.f;
 		data[Runner::Soldier].velocity = 150.f;
 		data[Runner::Soldier].acceleration = 0.f;
-		data[Runner::Soldier].texture = Textures::Actors;
-		data[Runner::Soldier].textureBoundary = sf::IntRect(0, 0, 48, 64);
-		data[Runner::Soldier].runInterval = sf::milliseconds(255);
+		data[Runner::Soldier].texture = Textures::Run_Character_1;
+		data[Runner::Soldier].textureBoundary = sf::IntRect(0, 0, 413, 363);
+		data[Runner::Soldier].runFrames = std::vector<Textures::ID>{ Textures::Run_Character_1
+																   , Textures::Run_Character_2
+																   , Textures::Run_Character_3
+																   , Textures::Run_Character_4
+																   , Textures::Run_Character_5
+																   , Textures::Run_Character_6
+																   , Textures::Run_Character_7
+																   , Textures::Run_Character_8
+																   , Textures::Run_Character_9
+																   , Textures::Run_Character_10
+																   , Textures::Run_Character_11
+																   , Textures::Run_Character_12 };
+		//data[Runner::Soldier].runFrame01 = Textures::Run_Character_1;
+		//data[Runner::Soldier].runFrame02 = Textures::Run_Character_2;
+		//data[Runner::Soldier].runFrame03 = Textures::Run_Character_3;
+		//data[Runner::Soldier].runFrame04 = Textures::Run_Character_4;
+		//data[Runner::Soldier].runFrame05 = Textures::Run_Character_5;
+		//data[Runner::Soldier].runFrame06 = Textures::Run_Character_6;
+		//data[Runner::Soldier].runFrame07 = Textures::Run_Character_7;
+		//data[Runner::Soldier].runFrame08 = Textures::Run_Character_8;
+		//data[Runner::Soldier].runFrame09 = Textures::Run_Character_9;
+		//data[Runner::Soldier].runFrame10 = Textures::Run_Character_10;
+		//data[Runner::Soldier].runFrame11 = Textures::Run_Character_11;
+		//data[Runner::Soldier].runFrame12 = Textures::Run_Character_12;
+		data[Runner::Soldier].runInterval = sf::milliseconds(1000);
+		data[Runner::Soldier].slideFrame01 = Textures::Run_Character_Slide;
 		data[Runner::Soldier].slideInterval = sf::milliseconds(1000);
+		data[Runner::Soldier].jumpFrame01 = Textures::Run_Character_Jump;
 		data[Runner::Soldier].jumpInterval = sf::milliseconds(1000);
 		data[Runner::Soldier].cycleInterval = sf::milliseconds(1000);
 		data[Runner::Soldier].abilityInterval = sf::seconds(10);
 		data[Runner::Soldier].hasRunAnimation = true;
-		data[Runner::Soldier].runAnimFrames = 12;
+		//data[Runner::Soldier].runAnimFrames = 12;
 		data[Runner::Soldier].hasSlideAnimation = true;
-		data[Runner::Soldier].slideAnimFrames = 1;
+		//data[Runner::Soldier].slideAnimFrames = 1;
 		data[Runner::Soldier].hasJumpAnimation = true;
-		data[Runner::Soldier].jumpAnimFrames = 1;
+		//data[Runner::Soldier].jumpAnimFrames = 1;
 
 		return data;
 	}
