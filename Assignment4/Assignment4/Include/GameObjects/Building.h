@@ -1,11 +1,11 @@
 #pragma once
-#include <Book/Entity.hpp>
+#include <GameObjects/Actor.hpp>
 #include <Book/Command.hpp>
 #include <Book/TextNode.hpp>
 #include <Book/Animation.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
-class Building : public Entity
+class Building : public INFINITYRUNNER::Actor
 {
 public:
 	Building(const sf::Texture& texture);

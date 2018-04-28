@@ -1,7 +1,5 @@
 #include <Book\RunWorld.h>
 
-#include <Book\Entity.hpp>
-
 #include <GameObjects/Actor.hpp>
 #include <Book/TextNode.hpp>
 #include <Book/Foreach.hpp>

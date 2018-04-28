@@ -15,13 +15,9 @@ namespace Textures
 	enum ID
 	{
 		Actors,
-		Entities,
-		Jungle,
 		TitleScreen,
 		Buttons,
-		Explosion,
 		Particle,
-		FinishLine,
 		Run_BG,
 		Run_BG_Building1,
 		Run_BG_Building2,

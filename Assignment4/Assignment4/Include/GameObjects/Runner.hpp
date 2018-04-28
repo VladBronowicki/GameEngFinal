@@ -3,10 +3,8 @@
 #include <GameObjects/Actor.hpp>
 #include <Book/Command.hpp>
 #include <Book/ResourceIdentifiers.hpp>
-#include <Book/Projectile.hpp>
 #include <Book/TextNode.hpp>
 #include <Book/Animation.hpp>
-#include <Book/Pickup.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 
@@ -28,12 +26,12 @@ namespace INFINITYRUNNER {
 		{
 			None		= 0,
 			Running		= 1 << 0,
-			Sliding		= 2 << 0,
-			Jumping		= 3 << 0,
-			Falling		= 4 << 0,
-			Using		= 5 << 0,
-			Dying		= 6 << 0,
-			AnimCount	= 7 << 0
+			Sliding		= 1 << 1,
+			Jumping		= 1 << 2,
+			Falling		= 1 << 3,
+			Using		= 1 << 4,
+			Dying		= 1 << 5,
+			AnimCount	= 1 << 6
 		};
 
 	/// Attributes

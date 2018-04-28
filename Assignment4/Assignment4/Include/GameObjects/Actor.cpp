@@ -6,7 +6,7 @@
 INFINITYRUNNER::Actor::Actor()
 	: mVelocity()
 	, mAcceleration()
-	, mHealth()
+	, mHealth(1)
 {
 }
 

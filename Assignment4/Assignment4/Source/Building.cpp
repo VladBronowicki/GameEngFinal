@@ -7,7 +7,7 @@
 #include <cmath>
 
 Building::Building(const sf::Texture& texture) :
-	Entity(1)
+	Actor()
 , mSprite(texture)
 {
 	updateTexts();
@@ -27,7 +27,7 @@ void Building::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
 void Building::updateCurrent(sf::Time dt, CommandQueue & commands)
 {
 	updateTexts();
-	Entity::updateCurrent(dt, commands);
+	Actor::updateCurrent(dt, commands);
 }
 
 void Building::updateTexts()

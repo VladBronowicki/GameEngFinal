@@ -3,7 +3,6 @@
 #include <Book/State.hpp>
 #include <Book/StateIdentifiers.hpp>
 #include <Book/TitleState.hpp>
-#include <Book/GameState.hpp>
 #include <Book/RunGameState.h>
 #include <Book/MenuState.hpp>
 #include <Book/PauseState.hpp>

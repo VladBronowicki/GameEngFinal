@@ -24,31 +24,6 @@ struct Direction
 	float distance;
 };
 
-struct AircraftData
-{
-	int								hitpoints;
-	float							speed;
-	Textures::ID					texture;
-	sf::IntRect						textureRect;
-	sf::Time						fireInterval;
-	std::vector<Direction>			directions;
-	bool							hasRollAnimation;
-};
-
-struct ProjectileData
-{
-	int								damage;
-	float							speed;
-	Textures::ID					texture;
-	sf::IntRect						textureRect;
-};
-
-struct PickupData
-{
-	std::function<void(Aircraft&)>	action;
-	Textures::ID					texture;
-	sf::IntRect						textureRect;
-};
 
 struct ParticleData
 {
@@ -57,9 +32,6 @@ struct ParticleData
 };
 
 
-std::vector<AircraftData>	initializeAircraftData();
-std::vector<ProjectileData>	initializeProjectileData();
-std::vector<PickupData>		initializePickupData();
 std::vector<ParticleData>	initializeParticleData();
 
 namespace INFINITYRUNNER {
@@ -71,18 +43,6 @@ namespace INFINITYRUNNER {
 		Textures::ID			texture;
 		sf::IntRect				textureBoundary;
 		std::vector<Textures::ID>	runFrames;
-		//Textures::ID			runFrame01;
-		//Textures::ID			runFrame02;
-		//Textures::ID			runFrame03;
-		//Textures::ID			runFrame04;
-		//Textures::ID			runFrame05;
-		//Textures::ID			runFrame06;
-		//Textures::ID			runFrame07;
-		//Textures::ID			runFrame08;
-		//Textures::ID			runFrame09;
-		//Textures::ID			runFrame10;
-		//Textures::ID			runFrame11;
-		//Textures::ID			runFrame12;
 		sf::Time				runInterval;
 		Textures::ID			slideFrame01;
 		sf::Time				slideInterval;
@@ -93,11 +53,8 @@ namespace INFINITYRUNNER {
 		std::vector<Direction>	slideDirections;
 		std::vector<Direction>	jumpDirections;
 		bool					hasRunAnimation;
-		//int						runAnimFrames;
 		bool					hasSlideAnimation;
-		//int						slideAnimFrames;
 		bool					hasJumpAnimation;
-		//int						jumpAnimFrames;
 	};
 
 	struct ObstructionData
