@@ -18,19 +18,45 @@ namespace sf
 class StateStack;
 class Player;
 
+namespace INFINITYRUNNER
+{
+	class DefaultInput;
+	class JoystickInput;
+	class MouseInput;
+}
+
 class State
 {
 	public:
+		enum InputControllerState
+		{
+			None				= 0,
+			DefaultController	= 1 << 0,
+			JoystickController	= 2 << 0,
+			MouseController		= 3 << 0,
+			PlayerController	= 4 << 0
+		};
 		typedef std::unique_ptr<State> Ptr;
 
 		struct Context
 		{
-								Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player);
+								Context(sf::RenderWindow& window
+										, TextureHolder& textures
+										, FontHolder& fonts
+										, Player& player
+										, INFINITYRUNNER::DefaultInput& defaultInput
+										, INFINITYRUNNER::JoystickInput& joystickInput
+										, INFINITYRUNNER::MouseInput& mouseInput
+										, InputControllerState& inputControllerState);
 
 			sf::RenderWindow*	window;
 			TextureHolder*		textures;
 			FontHolder*			fonts;
 			Player*				player;
+			INFINITYRUNNER::DefaultInput*	defaultInput;
+			INFINITYRUNNER::JoystickInput*	joystickInput;
+			INFINITYRUNNER::MouseInput*		mouseInput;
+			InputControllerState*			inputControllerState;
 		};
 
 

@@ -3,7 +3,11 @@
 
 #include <Book/ResourceHolder.hpp>
 #include <Book/ResourceIdentifiers.hpp>
+//TODO: REPLACE!
 #include <Book/Player.hpp>
+#include <Input/DefaultInput.hpp>
+#include <Input/JoystickInput.hpp>
+#include <Input/MouseInput.hpp>
 #include <Book/StateStack.hpp>
 
 #include <SFML/System/Time.hpp>
@@ -34,6 +38,10 @@ class Application
 		TextureHolder			mTextures;
 	  	FontHolder				mFonts;
 		Player					mPlayer;
+		INFINITYRUNNER::DefaultInput	mDefaultInput;
+		INFINITYRUNNER::JoystickInput	mJoystickInput;
+		INFINITYRUNNER::MouseInput		mMouseInput;
+		State::InputControllerState		mInputControllerState;
 
 		StateStack				mStateStack;
 

@@ -15,9 +15,9 @@ INFINITYRUNNER::MouseInput::MouseInput()
 	// set bindings
 	mKeyBinding[sf::Mouse::Left] = Slide;
 	mKeyBinding[sf::Mouse::Right] = Jump;
-	mKeyBinding[sf::Mouse::XButton2] = CycleDown;
-	mKeyBinding[sf::Mouse::XButton1] = CycleUp;
-	mKeyBinding[sf::Mouse::Middle] = UseAbility;
+	//mKeyBinding[sf::Mouse::XButton2] = CycleDown;
+	//mKeyBinding[sf::Mouse::XButton1] = CycleUp;
+	//mKeyBinding[sf::Mouse::Middle] = UseAbility;
 
 	// initialize actions
 	initializeActions();
@@ -90,9 +90,9 @@ void INFINITYRUNNER::MouseInput::initializeActions()
 	//TODO: initialize properly
 	mActionBinding[Slide].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.slide(); });
 	mActionBinding[Jump].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.jump(); });
-	mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
-	mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
-	mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
+	//mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
+	//mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
+	//mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
 }
 
 bool INFINITYRUNNER::MouseInput::isDynamicAction(INFINITYRUNNER::MouseInput::Action action)
@@ -101,7 +101,7 @@ bool INFINITYRUNNER::MouseInput::isDynamicAction(INFINITYRUNNER::MouseInput::Act
 	{
 	case Slide:
 	case Jump:
-	case UseAbility:
+	//case UseAbility:
 		return true;
 
 	default:

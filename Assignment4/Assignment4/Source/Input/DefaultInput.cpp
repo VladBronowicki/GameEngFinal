@@ -15,9 +15,9 @@ INFINITYRUNNER::DefaultInput::DefaultInput()
 	// set bindings
 	mKeyBinding[sf::Keyboard::Down] = Slide;
 	mKeyBinding[sf::Keyboard::Up] = Jump;
-	mKeyBinding[sf::Keyboard::PageDown] = CycleDown;
-	mKeyBinding[sf::Keyboard::PageUp] = CycleUp;
-	mKeyBinding[sf::Keyboard::Space] = UseAbility;
+	//mKeyBinding[sf::Keyboard::PageDown] = CycleDown;
+	//mKeyBinding[sf::Keyboard::PageUp] = CycleUp;
+	//mKeyBinding[sf::Keyboard::Space] = UseAbility;
 
 	// initialize actions
 	initializeActions();
@@ -89,9 +89,9 @@ void INFINITYRUNNER::DefaultInput::initializeActions()
 	//TODO: initialize successfully
 	mActionBinding[Slide].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.slide(); });
 	mActionBinding[Jump].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.jump(); });
-	mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
-	mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
-	mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
+	//mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
+	//mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
+	//mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
 }
 
 bool INFINITYRUNNER::DefaultInput::isDynamicAction(INFINITYRUNNER::DefaultInput::Action action)
@@ -100,7 +100,7 @@ bool INFINITYRUNNER::DefaultInput::isDynamicAction(INFINITYRUNNER::DefaultInput:
 	{
 	case Slide:
 	case Jump:
-	case UseAbility:
+	//case UseAbility:
 		return true;
 
 	default:

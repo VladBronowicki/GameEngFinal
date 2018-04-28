@@ -1,6 +1,10 @@
 #include <Book/GameOverState.hpp>
 #include <Book/Utility.hpp>
+//TODO: REPLACE!
 #include <Book/Player.hpp>
+#include <Input/DefaultInput.hpp>
+#include <Input/JoystickInput.hpp>
+#include <Input/MouseInput.hpp>
 #include <Book/ResourceHolder.hpp>
 
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -17,12 +21,15 @@ GameOverState::GameOverState(StateStack& stack, Context context)
 	sf::Vector2f windowSize(context.window->getSize());
 
 	mGameOverText.setFont(font);
-	if (context.player->getMissionStatus() == Player::MissionFailure)
-		mGameOverText.setString("Mission failed!");	
+	if (context.player->getMissionStatus() == Player::MissionFailure ||
+		context.defaultInput->getLevelStatus() == INFINITYRUNNER::DefaultInput::LevelFailed ||
+		context.joystickInput->getLevelStatus() == INFINITYRUNNER::JoystickInput::LevelFailed ||
+		context.mouseInput->getLevelStatus() == INFINITYRUNNER::MouseInput::LevelFailed)
+		mGameOverText.setString("FAILURE");	
 	else
-		mGameOverText.setString("Mission successful!");
+		mGameOverText.setString("SUCCESS");
 
-	mGameOverText.setCharacterSize(70);
+	mGameOverText.setCharacterSize(140);
 	centerOrigin(mGameOverText);
 	mGameOverText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
 }

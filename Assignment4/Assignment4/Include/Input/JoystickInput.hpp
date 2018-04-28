@@ -21,9 +21,9 @@ namespace INFINITYRUNNER {
 		{
 			Slide,
 			Jump,
-			CycleUp,
-			CycleDown,
-			UseAbility,
+			//CycleUp,		//NOT READY!
+			//CycleDown,	//NOT READY!
+			//UseAbility,	//NOT READY!
 			ActionCount
 		};
 		enum LevelStatus

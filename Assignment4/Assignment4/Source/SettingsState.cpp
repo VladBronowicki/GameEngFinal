@@ -11,13 +11,13 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 {
 	mBackgroundSprite.setTexture(context.textures->get(Textures::TitleScreen));
 	
-	// Build key binding buttons and labels
-	addButtonLabel(Player::MoveLeft,		300.f, "Move Left", context);
-	addButtonLabel(Player::MoveRight,		350.f, "Move Right", context);
-	addButtonLabel(Player::MoveUp,			400.f, "Move Up", context);
-	addButtonLabel(Player::MoveDown,		450.f, "Move Down", context);
-	addButtonLabel(Player::Fire,			500.f, "Fire", context);
-	addButtonLabel(Player::LaunchMissile,	550.f, "Missile", context);
+	//BINDINGS
+	addDefaultButtonLabel(INFINITYRUNNER::DefaultInput::Slide,		300.f, "Slide(Keyboard)", context);
+	addDefaultButtonLabel(INFINITYRUNNER::DefaultInput::Jump,		350.f, "Jump(Keyboard)", context);
+	addJoystickButtonLabel(INFINITYRUNNER::JoystickInput::Slide,	400.f, "Slide(Joystick)", context);
+	addJoystickButtonLabel(INFINITYRUNNER::JoystickInput::Jump,		450.f, "Jump(Joystick)", context);
+	addMouseButtonLabel(INFINITYRUNNER::MouseInput::Slide,			500.f, "Slide(Mouse)", context);
+	addMouseButtonLabel(INFINITYRUNNER::MouseInput::Jump,			550.f, "Jump(Mouse)", context);
 
 	updateLabels();
 
@@ -46,18 +46,45 @@ bool SettingsState::handleEvent(const sf::Event& event)
 {
 	bool isKeyBinding = false;
 	
-	// Iterate through all key binding buttons to see if they are being pressed, waiting for the user to enter a key
-	for (std::size_t action = 0; action < Player::ActionCount; ++action)
+	//KEYBOARD
+	for (std::size_t action = 0; action < INFINITYRUNNER::DefaultInput::ActionCount; ++action)
 	{
-		if (mBindingButtons[action]->isActive())
+		if (mDefaultBindingButtons[action]->isActive())
 		{
 			isKeyBinding = true;
 			if (event.type == sf::Event::KeyReleased)
 			{
-				getContext().player->assignKey(static_cast<Player::Action>(action), event.key.code);
-				mBindingButtons[action]->deactivate();
+				getContext().defaultInput->assignKeybind(static_cast<INFINITYRUNNER::DefaultInput::Action>(action), event.key.code);
+				mDefaultBindingButtons[action]->deactivate();
 			}
 			break;
+		}
+	}
+	//JOYSTICK
+	for (std::size_t action = 0; action < INFINITYRUNNER::JoystickInput::ActionCount; ++action)
+	{
+		if (mJoystickBindingButtons[action]->isActive())
+		{
+			isKeyBinding = true;
+			if (event.type == sf::Event::JoystickMoved)
+			{
+				getContext().joystickInput->assignKeybind(static_cast<INFINITYRUNNER::JoystickInput::Action>(action), event.joystickMove.axis);
+				mJoystickBindingButtons[action]->deactivate();
+			}
+			break;
+		}
+	}
+	//MOUSE
+	for (std::size_t action = 0; action < INFINITYRUNNER::MouseInput::ActionCount; ++action)
+	{
+		if (mMouseBindingButtons[action]->isActive())
+		{
+			isKeyBinding = true;
+			if (event.type == sf::Event::MouseButtonReleased)
+			{
+				getContext().mouseInput->assignKeybind(static_cast<INFINITYRUNNER::MouseInput::Action>(action), event.mouseButton.button);
+				mMouseBindingButtons[action]->deactivate();
+			}
 		}
 	}
 
@@ -72,25 +99,70 @@ bool SettingsState::handleEvent(const sf::Event& event)
 
 void SettingsState::updateLabels()
 {
-	Player& player = *getContext().player;
-
-	for (std::size_t i = 0; i < Player::ActionCount; ++i)
+	//KEYBOARD
+	INFINITYRUNNER::DefaultInput& defaultInput = *getContext().defaultInput;
+	for (std::size_t index = 0; index < INFINITYRUNNER::DefaultInput::ActionCount; index++)
 	{
-		sf::Keyboard::Key key = player.getAssignedKey(static_cast<Player::Action>(i));
-		mBindingLabels[i]->setText(toString(key));
+		sf::Keyboard::Key key = defaultInput.getKeybind(static_cast<INFINITYRUNNER::DefaultInput::Action>(index));
+		mBindingLabels[index]->setText(toString(key));
+	}
+	//JOYSTICK
+	INFINITYRUNNER::JoystickInput& joystickInput = *getContext().joystickInput;
+	for (std::size_t index = 0; index < INFINITYRUNNER::JoystickInput::ActionCount; index++)
+	{
+		sf::Joystick::Axis axis = joystickInput.getKeybind(static_cast<INFINITYRUNNER::JoystickInput::Action>(index));
+		mBindingLabels[index + 2]->setText(toString(axis));
+	}
+	//MOUSE
+	INFINITYRUNNER::MouseInput& mouseInput = *getContext().mouseInput;
+	for (std::size_t index = 0; index < INFINITYRUNNER::MouseInput::ActionCount; index++)
+	{
+		sf::Mouse::Button button = mouseInput.getKeybind(static_cast<INFINITYRUNNER::MouseInput::Action>(index));
+		mBindingLabels[index + 4]->setText(toString(button));
 	}
 }
 
-void SettingsState::addButtonLabel(Player::Action action, float y, const std::string& text, Context context)
+void SettingsState::addDefaultButtonLabel(INFINITYRUNNER::DefaultInput::Action action, float y, const std::string & text, Context context)
 {
-	mBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mBindingButtons[action]->setPosition(80.f, y);
-	mBindingButtons[action]->setText(text);
-	mBindingButtons[action]->setToggle(true);
+	//KEYBOARD
+	mDefaultBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mDefaultBindingButtons[action]->setPosition(50.f, y);
+	mDefaultBindingButtons[action]->setText(text);
+	mDefaultBindingButtons[action]->setToggle(true);
 
-	mBindingLabels[action] = std::make_shared<GUI::Label>("", *context.fonts);
-	mBindingLabels[action]->setPosition(300.f, y + 15.f);
+	mDefaultBindingLabels[action] = std::make_shared<GUI::Label>("", *context.fonts);
+	mDefaultBindingLabels[action]->setPosition(300.f, y + 15.f);
 
-	mGUIContainer.pack(mBindingButtons[action]);
-	mGUIContainer.pack(mBindingLabels[action]);
+	mGUIContainer.pack(mDefaultBindingButtons[action]);
+	mGUIContainer.pack(mDefaultBindingLabels[action]);
+}
+
+void SettingsState::addJoystickButtonLabel(INFINITYRUNNER::JoystickInput::Action action, float y, const std::string & text, Context context)
+{
+	//JOYSTICK
+	mJoystickBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mJoystickBindingButtons[action]->setPosition(250.f, y);
+	mJoystickBindingButtons[action]->setText(text);
+	mJoystickBindingButtons[action]->setToggle(true);
+
+	mJoystickBindingLabels[action] = std::make_shared<GUI::Label>("", *context.fonts);
+	mJoystickBindingLabels[action]->setPosition(300.f, y + 15.f);
+
+	mGUIContainer.pack(mJoystickBindingButtons[action]);
+	mGUIContainer.pack(mJoystickBindingLabels[action]);
+}
+
+void SettingsState::addMouseButtonLabel(INFINITYRUNNER::MouseInput::Action action, float y, const std::string & text, Context context)
+{
+	//MOUSE
+	mMouseBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mMouseBindingButtons[action]->setPosition(450.f, y);
+	mMouseBindingButtons[action]->setText(text);
+	mMouseBindingButtons[action]->setToggle(true);
+
+	mMouseBindingLabels[action] = std::make_shared<GUI::Label>("", *context.fonts);
+	mMouseBindingLabels[action]->setPosition(300.f, y + 15.f);
+
+	mGUIContainer.pack(mMouseBindingButtons[action]);
+	mGUIContainer.pack(mMouseBindingLabels[action]);
 }

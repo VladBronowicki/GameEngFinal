@@ -4,7 +4,7 @@
 #include <Book/StateIdentifiers.hpp>
 #include <Book/TitleState.hpp>
 #include <Book/GameState.hpp>
-#include <Book\RunGameState.h>
+#include <Book/RunGameState.h>
 #include <Book/MenuState.hpp>
 #include <Book/PauseState.hpp>
 #include <Book/SettingsState.hpp>
@@ -18,7 +18,11 @@ Application::Application()
 , mTextures()
 , mFonts()
 , mPlayer()
-, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer))
+, mDefaultInput()
+, mJoystickInput()
+, mMouseInput()
+, mInputControllerState()
+, mStateStack(State::Context(mWindow, mTextures, mFonts, mPlayer, mDefaultInput, mJoystickInput, mMouseInput, mInputControllerState))
 , mStatisticsText()
 , mStatisticsUpdateTime()
 , mStatisticsNumFrames(0)
@@ -28,7 +32,7 @@ Application::Application()
 	mFonts.load(Fonts::Main, 	"Media/Sansation.ttf");
 
 	mTextures.load(Textures::TitleScreen,	"Media/Textures/TitleScreen.png");
-	mTextures.load(Textures::Buttons,		"Media/Textures/Buttons.png");
+	mTextures.load(Textures::Buttons,		"Media/Textures/RUN_Buttons.png");
 
 	mStatisticsText.setFont(mFonts.get(Fonts::Main));
 	mStatisticsText.setPosition(5.f, 5.f);

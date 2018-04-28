@@ -15,9 +15,9 @@ INFINITYRUNNER::JoystickInput::JoystickInput()
 	// set bindings
 	mKeyBinding[sf::Joystick::X] = Slide;
 	mKeyBinding[sf::Joystick::Y] = Jump;
-	mKeyBinding[sf::Joystick::R] = CycleDown;
-	mKeyBinding[sf::Joystick::U] = CycleUp;
-	mKeyBinding[sf::Joystick::Z] = UseAbility;
+	//mKeyBinding[sf::Joystick::R] = CycleDown;
+	//mKeyBinding[sf::Joystick::U] = CycleUp;
+	//mKeyBinding[sf::Joystick::Z] = UseAbility;
 
 	// initialize actions
 	initializeActions();
@@ -62,9 +62,9 @@ void INFINITYRUNNER::JoystickInput::initializeActions()
 	//TODO: initialize properly
 	mActionBinding[Slide].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.slide(); });
 	mActionBinding[Jump].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.jump(); });
-	mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
-	mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
-	mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
+	//mActionBinding[CycleDown].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(false); });
+	//mActionBinding[CycleUp].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.cycleAbility(true); });
+	//mActionBinding[UseAbility].action = derivedAction<Runner>([](Runner& r, sf::Time) { r.useAbility(); });
 }
 
 bool INFINITYRUNNER::JoystickInput::isDynamicAction(INFINITYRUNNER::JoystickInput::Action action)
@@ -73,7 +73,7 @@ bool INFINITYRUNNER::JoystickInput::isDynamicAction(INFINITYRUNNER::JoystickInpu
 	{
 	case Slide:
 	case Jump:
-	case UseAbility:
+	//case UseAbility:
 		return true;
 
 	default:
