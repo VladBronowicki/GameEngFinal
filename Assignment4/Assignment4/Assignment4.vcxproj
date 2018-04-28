@@ -61,6 +61,7 @@
     <ClInclude Include="Include\DataClassifications\ElementClassification.hpp" />
     <ClInclude Include="Include\GameObjects\Ability.hpp" />
     <ClInclude Include="Include\GameObjects\Actor.hpp" />
+    <ClInclude Include="Include\GameObjects\Building.h" />
     <ClInclude Include="Include\GameObjects\Obstruction.hpp" />
     <ClInclude Include="Include\GameObjects\Runner.hpp" />
     <ClInclude Include="Include\Input\DefaultInput.hpp" />
@@ -81,6 +82,7 @@
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\BloomEffect.cpp" />
+    <ClCompile Include="Source\Building.cpp" />
     <ClCompile Include="Source\Button.cpp" />
     <ClCompile Include="Source\Command.cpp" />
     <ClCompile Include="Source\CommandQueue.cpp" />

@@ -3,6 +3,7 @@
 #include <Book\Entity.hpp>
 
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <GameObjects\Building.h>
 
 #include <algorithm>
 #include <cmath>
@@ -16,9 +17,9 @@ RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarge
 , mFonts(fonts)
 , mSceneGraph()
 , mSceneLayers()
-, mWorldBounds(0.f, 0.f,mWorldView.getSize().x, mWorldView.getSize().y)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
-, mScrollSpeed(0.0f)
+, mScrollSpeed(100.0f)
 {
 	mSceneTexture.create(mTarget.getSize().x, mTarget.getSize().y);
 
@@ -37,6 +38,14 @@ void RunWorld::update(sf::Time dt)
 	mSceneGraph.removeWrecks();
 	mSceneGraph.update(dt, mCommandQueue);
 	adaptPlayerPosition();
+
+	mTimeCounter += dt.asMilliseconds();
+	if ((int)mTimeCounter % ((rand()%250)+250) == 0) {
+		printf("Spawning building...");
+		loadBuildings();
+	}
+
+
 
 }
 
@@ -118,6 +127,40 @@ void RunWorld::handleCollisions()
 
 }
 
+void RunWorld::loadBuildings()
+{
+	Textures::ID tx = Textures::Run_BG_Building1;
+	int outPut = rand() % 3;
+	switch (outPut) {
+	case 0:
+		tx = Textures::Run_BG_Building1;
+		break;
+	case 1:
+		tx = Textures::Run_BG_Building2;
+		break;
+	case 2:
+		tx = Textures::Run_BG_Building3;
+		break;
+	default:
+		return;
+	}
+
+	sf::Texture& bgTexture = mTextures.get(tx);
+	sf::IntRect textureRect(mWorldBounds);
+	textureRect.height = bgTexture.getSize().y;
+	textureRect.width = bgTexture.getSize().x;
+	std::unique_ptr<Building> bgSprite(new Building(bgTexture));
+	float scale = rand() % 5 / 100.f;
+	bgSprite->setScale(.5f+scale, .5f+scale);
+	bgSprite->setPosition(mWorldView.getSize().x + 100.f + ((mTimeCounter / 1000) * mScrollSpeed), (mWorldView.getSize().y - (bgTexture.getSize().y / 2)) + (rand()%50));
+	bgSprite->setVelocity(mScrollSpeed / ((rand() % 10) + 2), 0);
+	mSceneLayers[Background]->attachChild(std::move(bgSprite));
+}
+
+void RunWorld::loadBuildingsStart()
+{
+}
+
 void RunWorld::buildScene()
 {
 	for (std::size_t i = 0; i < LayerCount; ++i)
@@ -130,7 +173,6 @@ void RunWorld::buildScene()
 		else {
 			category = Category::Run_None;
 		}
-		
 
 		SceneNode::Ptr layer(new SceneNode(category));
 		mSceneLayers[i] = layer.get();
@@ -139,16 +181,23 @@ void RunWorld::buildScene()
 	}
 	sf::Texture& bgTexture = mTextures.get(Textures::Run_BG);
 	bgTexture.setRepeated(true);
-	
+
 	float viewHeight = mWorldView.getSize().y;
 	sf::IntRect textureRect(mWorldBounds);
 	textureRect.height = bgTexture.getSize().y;
 	textureRect.width = bgTexture.getSize().x;
-	std::unique_ptr<SpriteNode> bgSprite(new SpriteNode(bgTexture, textureRect));
-	bgSprite->setScale(mWorldView.getSize().x/bgTexture.getSize().x, mWorldView.getSize().y / bgTexture.getSize().y);
-	//bgSprite->setPosition(mWorldBounds.left, mWorldBounds.top - viewHeight);
-	
+	std::unique_ptr<Building> bgSprite(new Building(bgTexture));
+	bgSprite->setScale(mWorldView.getSize().x / bgTexture.getSize().x, mWorldView.getSize().y / bgTexture.getSize().y);
+	bgSprite->setVelocity(mScrollSpeed, 0);
 	mSceneLayers[Background]->attachChild(std::move(bgSprite));
+
+	loadBuildings();
+	loadBuildings();
+	loadBuildings();
+	loadBuildings();
+	loadBuildings();
+	loadBuildings();
+
 }
 
 void RunWorld::destroyEntitiesOutsideView()
@@ -172,8 +221,8 @@ sf::FloatRect RunWorld::getViewBounds() const
 sf::FloatRect RunWorld::getLevelBounds() const
 {
 	sf::FloatRect bounds = getViewBounds();
-	bounds.top -= 100.f;
-	bounds.height += 100.f;
+	bounds.left -= 300.f;
+	bounds.width += 300.f;
 
 	return bounds;
 }

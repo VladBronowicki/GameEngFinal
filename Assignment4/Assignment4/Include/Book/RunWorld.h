@@ -39,7 +39,8 @@ private:
 	void								adaptPlayerPosition();
 	void								adaptPlayerVelocity();
 	void								handleCollisions();
-
+	void								loadBuildings();
+	void								loadBuildingsStart();
 	void								buildScene();
 	void								destroyEntitiesOutsideView();
 	sf::FloatRect						getViewBounds() const;
@@ -69,5 +70,6 @@ private:
 	sf::FloatRect						mWorldBounds;
 	sf::Vector2f						mSpawnPosition;
 	float								mScrollSpeed;
+	float								mTimeCounter = 0;
 };
 
