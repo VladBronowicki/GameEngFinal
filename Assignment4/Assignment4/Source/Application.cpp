@@ -30,7 +30,7 @@ Application::Application()
 
 	mFonts.load(Fonts::Main, 	"Media/Sansation.ttf");
 
-	mTextures.load(Textures::TitleScreen,	"Media/Textures/FG/title_instructions_building.png");
+	mTextures.load(Textures::TitleScreen,	"Media/Textures/splash.png");
 	mTextures.load(Textures::Buttons,		"Media/Textures/RUN_Buttons.png");
 
 	mStatisticsText.setFont(mFonts.get(Fonts::Main));
