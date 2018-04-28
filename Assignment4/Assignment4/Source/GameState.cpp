@@ -27,7 +27,7 @@ bool GameState::update(sf::Time dt)
 		mDefaultInput.setLevelStatus(INFINITYRUNNER::DefaultInput::LevelFailed);
 		mJoystickInput.setLevelStatus(INFINITYRUNNER::JoystickInput::LevelFailed);
 		mMouseInput.setLevelStatus(INFINITYRUNNER::MouseInput::LevelFailed);
-		//requestStackPush(States::GameOver);
+		requestStackPush(States::GameOver);
 	}
 	else if (mWorld.hasPlayerReachedEnd())
 	{

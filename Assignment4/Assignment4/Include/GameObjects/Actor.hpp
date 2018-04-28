@@ -19,7 +19,7 @@ namespace INFINITYRUNNER {
 
 	/// Methods
 	protected:
-		virtual void	updateCurrent(sf::Time deltaTime, CommandQueue& commands, bool applyGravity);
+		virtual void	updateCurrent(sf::Time deltaTime, CommandQueue& commands);
 
 	public:
 		/// Motion

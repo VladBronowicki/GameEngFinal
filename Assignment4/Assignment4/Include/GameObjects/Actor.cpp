@@ -10,9 +10,9 @@ INFINITYRUNNER::Actor::Actor()
 {
 }
 
-void INFINITYRUNNER::Actor::updateCurrent(sf::Time deltaTime, CommandQueue& commands, bool applyGravity)
+void INFINITYRUNNER::Actor::updateCurrent(sf::Time deltaTime, CommandQueue& commands)
 {
-	if (applyGravity) this->applyAcceleration(deltaTime);
+	if (true) this->applyAcceleration(deltaTime);
 	move(mVelocity * deltaTime.asSeconds());
 }
 

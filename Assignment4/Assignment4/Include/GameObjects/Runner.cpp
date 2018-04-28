@@ -118,7 +118,7 @@ void INFINITYRUNNER::Runner::drawCurrent(sf::RenderTarget& target, sf::RenderSta
 	}
 }
 
-void INFINITYRUNNER::Runner::updateCurrent(sf::Time deltaTime, CommandQueue& commands, bool applyGravity)
+void INFINITYRUNNER::Runner::updateCurrent(sf::Time deltaTime, CommandQueue& commands)
 {
 	//TODO: Update text status?
 	
@@ -146,8 +146,11 @@ void INFINITYRUNNER::Runner::updateCurrent(sf::Time deltaTime, CommandQueue& com
 	//default:;
 	//}
 
+	// Update runner animation
+	updateRunnerAnimation(deltaTime);
+
 	// Update movement physics
-	Actor::updateCurrent(deltaTime, commands, applyGravity);
+	Actor::updateCurrent(deltaTime, commands);
 }
 
 void INFINITYRUNNER::Runner::updateMovementPattern(sf::Time deltaTime)
@@ -253,16 +256,16 @@ void INFINITYRUNNER::Runner::updateRunnerAnimation(sf::Time deltaTime)
 		sf::IntRect textureBoundary = Table[mCharacter].textureBoundary;
 
 		// make sure runner is running
-		if ((AnimState::Running & mActionState) == AnimState::Running
-			&& (AnimState::Jumping & mActionState) != AnimState::Jumping
-			&& (AnimState::Falling & mActionState) != AnimState::Falling
-			&& (AnimState::Sliding & mActionState) != AnimState::Sliding
-			&& (AnimState::Using & mActionState) != AnimState::Using)
-		{
+		//if ((AnimState::Running & mActionState) == AnimState::Running
+		//	&& (AnimState::Jumping & mActionState) != AnimState::Jumping
+		//	&& (AnimState::Falling & mActionState) != AnimState::Falling
+		//	&& (AnimState::Sliding & mActionState) != AnimState::Sliding
+		//	&& (AnimState::Using & mActionState) != AnimState::Using)
+		//{
 			mRunCountdown -= deltaTime;
 			if (mRunCountdown < sf::Time::Zero)
 				mRunCountdown += Table[mCharacter].runInterval;
-		}
+		//}
 
 		mCurrentRunFrame = mRunCountdown.asMilliseconds() * mTotalRunFrames / Table[mCharacter].runInterval.asMilliseconds();
 	}

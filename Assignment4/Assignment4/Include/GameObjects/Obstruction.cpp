@@ -49,7 +49,7 @@ void INFINITYRUNNER::Obstruction::updateCurrent(sf::Time deltaTime, CommandQueue
 		mAnim.update(deltaTime);
 
 	// Update movement physics (no gravity)
-	Actor::updateCurrent(deltaTime, commands, false);
+	Actor::updateCurrent(deltaTime, commands);
 }
 
 void INFINITYRUNNER::Obstruction::updateMovementPattern(sf::Time deltaTime)

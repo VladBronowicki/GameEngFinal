@@ -97,7 +97,7 @@ namespace INFINITYRUNNER {
 	/// Methods
 	private:
 		virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-		virtual void 			updateCurrent(sf::Time deltaTime, CommandQueue& commands, bool applyGravity);
+		virtual void 			updateCurrent(sf::Time deltaTime, CommandQueue& commands);
 		void					updateMovementPattern(sf::Time deltaTime);
 		void					checkAbilityDrop(CommandQueue& commands); //TODO: not sure if needed...
 		void					checkForAction(sf::Time deltaTime, CommandQueue& commands);

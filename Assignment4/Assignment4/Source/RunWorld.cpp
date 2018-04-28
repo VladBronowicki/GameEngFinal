@@ -21,7 +21,7 @@ RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarge
 , mFonts(fonts)
 , mSceneGraph()
 , mSceneLayers()
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y)
+, mWorldBounds(0.f, 0.f, mWorldView.getSize().x * 100.f, mWorldView.getSize().y)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 , mSpawnLayer(Collision)
 , mScrollSpeed(100.0f)
@@ -41,7 +41,7 @@ RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarge
 void RunWorld::update(sf::Time dt)
 {
 	mWorldView.move(mScrollSpeed * dt.asSeconds(), 0.f);
-	mPlayerRunner->setVelocity(0.f, 0.f);
+	mPlayerRunner->setVelocity(mScrollSpeed + 1.f, 0.f);
 	destroyEntitiesOutsideView();
 	//while (!mCommandQueue.isEmpty())
 	//	mSceneGraph.onCommand(mCommandQueue.pop(), dt);
