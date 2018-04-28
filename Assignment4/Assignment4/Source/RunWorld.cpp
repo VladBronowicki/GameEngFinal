@@ -40,11 +40,11 @@ RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarge
 
 void RunWorld::update(sf::Time dt)
 {
-	mWorldView.move(mScrollSpeed * dt.asSeconds(), .0f);
+	mWorldView.move(mScrollSpeed * dt.asSeconds(), 0.f);
 	mPlayerRunner->setVelocity(0.f, 0.f);
 	destroyEntitiesOutsideView();
-	while (!mCommandQueue.isEmpty())
-		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+	//while (!mCommandQueue.isEmpty())
+	//	mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	adaptPlayerVelocity(dt);
 	handleCollisions();
 	mSceneGraph.removeWrecks();
@@ -75,7 +75,7 @@ CommandQueue & RunWorld::getCommandQueue()
 
 bool RunWorld::hasAlivePlayer() const
 {
-	return !mPlayerRunner->isReadyToDie();
+	return !mPlayerRunner->isMarkedForRemoval();
 }
 
 bool RunWorld::hasPlayerReachedEnd() const
@@ -299,11 +299,11 @@ void RunWorld::generateObstructions()
 void RunWorld::destroyEntitiesOutsideView()
 {
 	Command command;
-	command.category = Category::Projectile | Category::EnemyAircraft;
-	command.action = derivedAction<Entity>([this](Entity& e, sf::Time)
+	command.category = Category::Run_Building | Category::Run_Prop;
+	command.action = derivedAction<INFINITYRUNNER::Actor>([this](INFINITYRUNNER::Actor& e, sf::Time)
 	{
 		if (!getLevelBounds().intersects(e.getBoundingRect()))
-			e.remove();
+			e.removeSelf();
 	});
 
 	mCommandQueue.push(command);

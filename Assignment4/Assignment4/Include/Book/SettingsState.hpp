@@ -2,8 +2,6 @@
 #define BOOK_SETTINGSSTATE_HPP
 
 #include <Book/State.hpp>
-//TODO: REPLACE!
-#include <Book/Player.hpp>
 #include <Input/DefaultInput.hpp>
 #include <Input/JoystickInput.hpp>
 #include <Input/MouseInput.hpp>
@@ -37,8 +35,6 @@ class SettingsState : public State
 	private:
 		sf::Sprite											mBackgroundSprite;
 		GUI::Container										mGUIContainer;
-		std::array<GUI::Button::Ptr, Player::ActionCount>	mBindingButtons;
-		std::array<GUI::Label::Ptr, Player::ActionCount> 	mBindingLabels;
 		std::array<GUI::Button::Ptr, INFINITYRUNNER::DefaultInput::ActionCount>		mDefaultBindingButtons;
 		std::array<GUI::Label::Ptr, INFINITYRUNNER::DefaultInput::ActionCount> 		mDefaultBindingLabels;
 		std::array<GUI::Button::Ptr, INFINITYRUNNER::JoystickInput::ActionCount>	mJoystickBindingButtons;

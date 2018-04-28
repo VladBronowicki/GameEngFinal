@@ -2,6 +2,9 @@
 
 #include <Book/State.hpp>
 #include "RunWorld.h"
+#include <Input/DefaultInput.hpp>
+#include <Input/JoystickInput.hpp>
+#include <Input/MouseInput.hpp>
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
@@ -18,5 +21,8 @@ public:
 
 private:
 	RunWorld				mWorld;
+	INFINITYRUNNER::DefaultInput&	mDefaultInput;
+	INFINITYRUNNER::JoystickInput&	mJoystickInput;
+	INFINITYRUNNER::MouseInput&		mMouseInput;
 };
 

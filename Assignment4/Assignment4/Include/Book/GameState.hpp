@@ -3,8 +3,6 @@
 
 #include <Book/State.hpp>
 #include <Book/World.hpp>
-//TODO: REPLACE!
-#include <Book/Player.hpp>
 #include <Input/DefaultInput.hpp>
 #include <Input/JoystickInput.hpp>
 #include <Input/MouseInput.hpp>
@@ -25,7 +23,6 @@ class GameState : public State
 
 	private:
 		World				mWorld;
-		Player&				mPlayer;
 		INFINITYRUNNER::DefaultInput&	mDefaultInput;
 		INFINITYRUNNER::JoystickInput&	mJoystickInput;
 		INFINITYRUNNER::MouseInput&		mMouseInput;

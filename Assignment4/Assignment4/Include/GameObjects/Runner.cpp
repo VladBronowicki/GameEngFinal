@@ -223,15 +223,15 @@ void INFINITYRUNNER::Runner::updateTexts()
 	// health
 	if (isDead())
 	{
-		mHealthMeter->setString("");
-		mAbilityMeter->setString("");
-		mDistanceMeter->setString("");
+		//mHealthMeter->setString("");
+		//mAbilityMeter->setString("");
+		//mDistanceMeter->setString("");
 	}
 	else
 	{
 		if (mHealthMeter)
 		{
-			mHealthMeter->setString(toString(getHealth()) + " ST");
+			//mHealthMeter->setString(toString(getHealth()) + " ST");
 		}
 		if (mAbilityMeter)
 		{
@@ -240,7 +240,7 @@ void INFINITYRUNNER::Runner::updateTexts()
 		}
 		if (mDistanceMeter)
 		{
-			mDistanceMeter->setString("Distance: " + toString(mRunDistance));
+			//mDistanceMeter->setString("Distance: " + toString(mRunDistance));
 		}
 	}
 }

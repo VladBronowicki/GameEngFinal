@@ -5,7 +5,6 @@
 State::Context::Context(sf::RenderWindow& window
 					  , TextureHolder& textures
 					  , FontHolder& fonts
-					  , Player& player
 					  , INFINITYRUNNER::DefaultInput& defaultInput
 					  , INFINITYRUNNER::JoystickInput& joystickInput
 					  , INFINITYRUNNER::MouseInput& mouseInput
@@ -13,7 +12,6 @@ State::Context::Context(sf::RenderWindow& window
 : window(&window)
 , textures(&textures)
 , fonts(&fonts)
-, player(&player)
 , defaultInput(&defaultInput)
 , joystickInput(&joystickInput)
 , mouseInput(&mouseInput)

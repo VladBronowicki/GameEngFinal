@@ -3,8 +3,6 @@
 
 #include <Book/ResourceHolder.hpp>
 #include <Book/ResourceIdentifiers.hpp>
-//TODO: REPLACE!
-#include <Book/Player.hpp>
 #include <Input/DefaultInput.hpp>
 #include <Input/JoystickInput.hpp>
 #include <Input/MouseInput.hpp>
@@ -37,7 +35,6 @@ class Application
 		sf::RenderWindow		mWindow;
 		TextureHolder			mTextures;
 	  	FontHolder				mFonts;
-		Player					mPlayer;
 		INFINITYRUNNER::DefaultInput	mDefaultInput;
 		INFINITYRUNNER::JoystickInput	mJoystickInput;
 		INFINITYRUNNER::MouseInput		mMouseInput;

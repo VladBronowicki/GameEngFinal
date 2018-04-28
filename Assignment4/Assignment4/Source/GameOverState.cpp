@@ -1,7 +1,5 @@
 #include <Book/GameOverState.hpp>
 #include <Book/Utility.hpp>
-//TODO: REPLACE!
-#include <Book/Player.hpp>
 #include <Input/DefaultInput.hpp>
 #include <Input/JoystickInput.hpp>
 #include <Input/MouseInput.hpp>
@@ -21,8 +19,7 @@ GameOverState::GameOverState(StateStack& stack, Context context)
 	sf::Vector2f windowSize(context.window->getSize());
 
 	mGameOverText.setFont(font);
-	if (context.player->getMissionStatus() == Player::MissionFailure ||
-		context.defaultInput->getLevelStatus() == INFINITYRUNNER::DefaultInput::LevelFailed ||
+	if (context.defaultInput->getLevelStatus() == INFINITYRUNNER::DefaultInput::LevelFailed ||
 		context.joystickInput->getLevelStatus() == INFINITYRUNNER::JoystickInput::LevelFailed ||
 		context.mouseInput->getLevelStatus() == INFINITYRUNNER::MouseInput::LevelFailed)
 		mGameOverText.setString("FAILURE");	
@@ -52,7 +49,7 @@ bool GameOverState::update(sf::Time dt)
 {
 	// Show state for 3 seconds, after return to menu
 	mElapsedTime += dt;
-	if (mElapsedTime > sf::seconds(3))
+	if (mElapsedTime > sf::seconds(10))
 	{
 		requestStateClear();
 		requestStackPush(States::Menu);

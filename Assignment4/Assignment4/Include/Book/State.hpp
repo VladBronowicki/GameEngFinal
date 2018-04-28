@@ -34,7 +34,6 @@ class State
 			DefaultController	= 1 << 0,
 			JoystickController	= 2 << 0,
 			MouseController		= 3 << 0,
-			PlayerController	= 4 << 0
 		};
 		typedef std::unique_ptr<State> Ptr;
 
@@ -43,7 +42,6 @@ class State
 								Context(sf::RenderWindow& window
 										, TextureHolder& textures
 										, FontHolder& fonts
-										, Player& player
 										, INFINITYRUNNER::DefaultInput& defaultInput
 										, INFINITYRUNNER::JoystickInput& joystickInput
 										, INFINITYRUNNER::MouseInput& mouseInput

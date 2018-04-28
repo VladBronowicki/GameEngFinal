@@ -104,21 +104,21 @@ void SettingsState::updateLabels()
 	for (std::size_t index = 0; index < INFINITYRUNNER::DefaultInput::ActionCount; index++)
 	{
 		sf::Keyboard::Key key = defaultInput.getKeybind(static_cast<INFINITYRUNNER::DefaultInput::Action>(index));
-		mBindingLabels[index]->setText(toString(key));
+		mDefaultBindingLabels[index]->setText(toString(key));
 	}
 	//JOYSTICK
 	INFINITYRUNNER::JoystickInput& joystickInput = *getContext().joystickInput;
 	for (std::size_t index = 0; index < INFINITYRUNNER::JoystickInput::ActionCount; index++)
 	{
 		sf::Joystick::Axis axis = joystickInput.getKeybind(static_cast<INFINITYRUNNER::JoystickInput::Action>(index));
-		mBindingLabels[index + 2]->setText(toString(axis));
+		mJoystickBindingLabels[index + 2]->setText(toString(axis));
 	}
 	//MOUSE
 	INFINITYRUNNER::MouseInput& mouseInput = *getContext().mouseInput;
 	for (std::size_t index = 0; index < INFINITYRUNNER::MouseInput::ActionCount; index++)
 	{
 		sf::Mouse::Button button = mouseInput.getKeybind(static_cast<INFINITYRUNNER::MouseInput::Action>(index));
-		mBindingLabels[index + 4]->setText(toString(button));
+		mMouseBindingLabels[index + 4]->setText(toString(button));
 	}
 }
 
