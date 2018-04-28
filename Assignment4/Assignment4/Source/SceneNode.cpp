@@ -12,9 +12,16 @@
 
 
 SceneNode::SceneNode(Category::Type category)
-: mChildren()
-, mParent(nullptr)
-, mDefaultCategory(category)
+	: mChildren()
+	, mParent(nullptr)
+	, mDefaultCategory(category)
+{
+}
+
+SceneNode::SceneNode(Category::RunType category) :
+	mChildren(), 
+	mParent(nullptr),
+	_RunDefaultCategory(category)
 {
 }
 
@@ -26,7 +33,7 @@ void SceneNode::attachChild(Ptr child)
 
 SceneNode::Ptr SceneNode::detachChild(const SceneNode& node)
 {
-	auto found = std::find_if(mChildren.begin(), mChildren.end(), [&] (Ptr& p) { return p.get() == &node; });
+	auto found = std::find_if(mChildren.begin(), mChildren.end(), [&](Ptr& p) { return p.get() == &node; });
 	assert(found != mChildren.end());
 
 	Ptr result = std::move(*found);
@@ -141,7 +148,7 @@ void SceneNode::checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPai
 void SceneNode::removeWrecks()
 {
 	// Remove all children which request so
-	auto wreckfieldBegin = std::remove_if (mChildren.begin(), mChildren.end(), std::mem_fn(&SceneNode::isMarkedForRemoval));
+	auto wreckfieldBegin = std::remove_if(mChildren.begin(), mChildren.end(), std::mem_fn(&SceneNode::isMarkedForRemoval));
 	mChildren.erase(wreckfieldBegin, mChildren.end());
 
 	// Call function recursively for all remaining children

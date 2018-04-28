@@ -1,4 +1,4 @@
-#include "RunWorld.h"
+#include <Book\RunWorld.h>
 
 #include <Book\Entity.hpp>
 
@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <cfloat>
 
 RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarget(outputTarget)
 , mSceneTexture()
@@ -15,9 +16,9 @@ RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarge
 , mFonts(fonts)
 , mSceneGraph()
 , mSceneLayers()
-, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, 5000.f)
+, mWorldBounds(0.f, 0.f,mWorldView.getSize().x, mWorldView.getSize().y)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
-, mScrollSpeed(-50.f)
+, mScrollSpeed(0.0f)
 {
 	mSceneTexture.create(mTarget.getSize().x, mTarget.getSize().y);
 
@@ -30,7 +31,7 @@ RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarge
 
 void RunWorld::update(sf::Time dt)
 {
-	mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
+	mWorldView.move(mScrollSpeed * dt.asSeconds(), .0f);
 	destroyEntitiesOutsideView();
 	handleCollisions();
 	mSceneGraph.removeWrecks();
@@ -69,9 +70,9 @@ void RunWorld::loadTextures()
 {
 	mTextures.load(Textures::Run_BG, "Media/Textures/BG/bg.png");
 	mTextures.load(Textures::Run_BG_Building1, "Media/Textures/BG/background_builidngs_1.png");
-	mTextures.load(Textures::Run_BG_Building1, "Media/Textures/BG/background_builidngs_2.png");
-	mTextures.load(Textures::Run_BG_Building1, "Media/Textures/BG/background_builidngs_3.png");
-	
+	mTextures.load(Textures::Run_BG_Building2, "Media/Textures/BG/background_builidngs_2.png");
+	mTextures.load(Textures::Run_BG_Building3, "Media/Textures/BG/background_builidngs_3.png");
+	//
 	mTextures.load(Textures::Run_Character_1, "Media/Textures/Character/run_1.png");
 	mTextures.load(Textures::Run_Character_2, "Media/Textures/Character/run_2.png");
 	mTextures.load(Textures::Run_Character_3, "Media/Textures/Character/run_3.png");
@@ -138,11 +139,15 @@ void RunWorld::buildScene()
 	}
 	sf::Texture& bgTexture = mTextures.get(Textures::Run_BG);
 	bgTexture.setRepeated(true);
+	
 	float viewHeight = mWorldView.getSize().y;
 	sf::IntRect textureRect(mWorldBounds);
-	textureRect.height += static_cast<int>(viewHeight);
+	textureRect.height = bgTexture.getSize().y;
+	textureRect.width = bgTexture.getSize().x;
 	std::unique_ptr<SpriteNode> bgSprite(new SpriteNode(bgTexture, textureRect));
-	bgSprite->setPosition(mWorldBounds.left, mWorldBounds.top - viewHeight);
+	bgSprite->setScale(mWorldView.getSize().x/bgTexture.getSize().x, mWorldView.getSize().y / bgTexture.getSize().y);
+	//bgSprite->setPosition(mWorldBounds.left, mWorldBounds.top - viewHeight);
+	
 	mSceneLayers[Background]->attachChild(std::move(bgSprite));
 }
 

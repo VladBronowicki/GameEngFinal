@@ -28,6 +28,7 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 
 	public:
 		explicit				SceneNode(Category::Type category = Category::None);
+		explicit				SceneNode(Category::RunType category);
 
 		void					attachChild(Ptr child);
 		Ptr						detachChild(const SceneNode& node);
@@ -62,6 +63,7 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 		std::vector<Ptr>		mChildren;
 		SceneNode*				mParent;
 		Category::Type			mDefaultCategory;
+		Category::RunType			_RunDefaultCategory;
 };
 
 bool	collision(const SceneNode& lhs, const SceneNode& rhs);

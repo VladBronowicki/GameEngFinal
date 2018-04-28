@@ -46,6 +46,8 @@
     <ClInclude Include="Include\Book\Projectile.hpp" />
     <ClInclude Include="Include\Book\ResourceHolder.hpp" />
     <ClInclude Include="Include\Book\ResourceIdentifiers.hpp" />
+    <ClInclude Include="Include\Book\RunGameState.h" />
+    <ClInclude Include="Include\Book\RunWorld.h" />
     <ClInclude Include="Include\Book\SceneNode.hpp" />
     <ClInclude Include="Include\Book\SettingsState.hpp" />
     <ClInclude Include="Include\Book\SpriteNode.hpp" />
@@ -65,7 +67,6 @@
     <ClInclude Include="Include\Input\JoystickInput.hpp" />
     <ClInclude Include="Include\Input\MouseInput.hpp" />
     <ClInclude Include="Include\Input\PlayerInputDataType.hpp" />
-    <ClInclude Include="RunWorld.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\Book\ResourceHolder.inl" />
@@ -76,7 +77,6 @@
     <ClCompile Include="Include\GameObjects\Actor.cpp" />
     <ClCompile Include="Include\GameObjects\Obstruction.cpp" />
     <ClCompile Include="Include\GameObjects\Runner.cpp" />
-    <ClCompile Include="RunWorld.cpp" />
     <ClCompile Include="Source\Aircraft.cpp" />
     <ClCompile Include="Source\Animation.cpp" />
     <ClCompile Include="Source\Application.cpp" />
@@ -103,6 +103,8 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PostEffect.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
+    <ClCompile Include="Source\RunGameState.cpp" />
+    <ClCompile Include="Source\RunWorld.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\SettingsState.cpp" />
     <ClCompile Include="Source\SpriteNode.cpp" />
