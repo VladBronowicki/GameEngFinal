@@ -13,7 +13,8 @@ MenuState::MenuState(StateStack& stack, Context context)
 {
 	sf::Texture& texture = context.textures->get(Textures::TitleScreen);
 	mBackgroundSprite.setTexture(texture);
-
+	mBackgroundSprite.setScale(2.f, 2.f);
+	mBackgroundSprite.setPosition(-300.f, .0f);
 	auto playButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
 	playButton->setPosition(100, 300);
 	playButton->setText("Play");
