@@ -1,5 +1,7 @@
 #include "RunWorld.h"
 
+#include <Book\Entity.hpp>
+
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include <algorithm>
@@ -86,12 +88,17 @@ void RunWorld::loadTextures()
 	mTextures.load(Textures::Run_Character_Slide, "Media/Textures/Character/slide.png");
 
 	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
-	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
-	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
-	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
-	mTextures.load(Textures::Run_FG_instr, "Media/Textures/FG/title_instructions_building.png");
+	mTextures.load(Textures::Run_FG_nowin1, "Media/Textures/FG/long_building_no_windows.png");
+	mTextures.load(Textures::Run_FG_nowin2, "Media/Textures/FG/short_building_no_windows.png");
+	mTextures.load(Textures::Run_FG_win1, "Media/Textures/FG/long_building_with_windows.png");
+	mTextures.load(Textures::Run_FG_win2, "Media/Textures/FG/short_building_with_windows.png");
 
-	
+	mTextures.load(Textures::Run_Props_BlackBird, "Media/Textures/Props/black_bird.png");
+	mTextures.load(Textures::Run_Props_Flowers, "Media/Textures/Props/flowers.png");
+	mTextures.load(Textures::Run_Props_Lamp, "Media/Textures/Props/light_post.png");
+	mTextures.load(Textures::Run_Props_HouseNoWin, "Media/Textures/Props/penthouse_no_window.png");
+	mTextures.load(Textures::Run_Props_HouseWin, "Media/Textures/Props/penthouse_with_winow.png");
+	mTextures.load(Textures::Run_Props_WhiteBird, "Media/Textures/Props/white_bird.png");
 
 }
 
@@ -112,22 +119,58 @@ void RunWorld::handleCollisions()
 
 void RunWorld::buildScene()
 {
+	for (std::size_t i = 0; i < LayerCount; ++i)
+	{
+		bool value = i == (int)Collision;
+		Category::RunType category;
+		if (value) {
+			category = Category::Run_Foreground;
+		}
+		else {
+			category = Category::Run_None;
+		}
+		
 
+		SceneNode::Ptr layer(new SceneNode(category));
+		mSceneLayers[i] = layer.get();
+
+		mSceneGraph.attachChild(std::move(layer));
+	}
+	sf::Texture& bgTexture = mTextures.get(Textures::Run_BG);
+	bgTexture.setRepeated(true);
+	float viewHeight = mWorldView.getSize().y;
+	sf::IntRect textureRect(mWorldBounds);
+	textureRect.height += static_cast<int>(viewHeight);
+	std::unique_ptr<SpriteNode> bgSprite(new SpriteNode(bgTexture, textureRect));
+	bgSprite->setPosition(mWorldBounds.left, mWorldBounds.top - viewHeight);
+	mSceneLayers[Background]->attachChild(std::move(bgSprite));
 }
 
 void RunWorld::destroyEntitiesOutsideView()
 {
+	Command command;
+	command.category = Category::Projectile | Category::EnemyAircraft;
+	command.action = derivedAction<Entity>([this](Entity& e, sf::Time)
+	{
+		if (!getLevelBounds().intersects(e.getBoundingRect()))
+			e.remove();
+	});
 
+	mCommandQueue.push(command);
 }
 
 sf::FloatRect RunWorld::getViewBounds() const
 {
-	return sf::FloatRect();
+	return sf::FloatRect(mWorldView.getCenter() - mWorldView.getSize() / 2.f, mWorldView.getSize());
 }
 
 sf::FloatRect RunWorld::getLevelBounds() const
 {
-	return sf::FloatRect();
+	sf::FloatRect bounds = getViewBounds();
+	bounds.top -= 100.f;
+	bounds.height += 100.f;
+
+	return bounds;
 }
 
 
