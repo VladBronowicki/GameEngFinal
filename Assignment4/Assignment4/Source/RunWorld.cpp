@@ -2,6 +2,10 @@
 
 #include <Book\Entity.hpp>
 
+#include <GameObjects/Actor.hpp>
+#include <Book/TextNode.hpp>
+#include <Book/Foreach.hpp>
+
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <GameObjects\Building.h>
 
@@ -19,7 +23,11 @@ RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarge
 , mSceneLayers()
 , mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y)
 , mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
+, mSpawnLayer(Collision)
 , mScrollSpeed(100.0f)
+, mPlayerRunner(nullptr)
+, mObstacleGenerators()
+, mObstructions()
 {
 	mSceneTexture.create(mTarget.getSize().x, mTarget.getSize().y);
 
@@ -33,9 +41,14 @@ RunWorld::RunWorld(sf::RenderTarget & outputTarget, FontHolder & fonts) : mTarge
 void RunWorld::update(sf::Time dt)
 {
 	mWorldView.move(mScrollSpeed * dt.asSeconds(), .0f);
+	mPlayerRunner->setVelocity(0.f, 0.f);
 	destroyEntitiesOutsideView();
+	while (!mCommandQueue.isEmpty())
+		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
+	adaptPlayerVelocity(dt);
 	handleCollisions();
 	mSceneGraph.removeWrecks();
+	generateObstructions();
 	mSceneGraph.update(dt, mCommandQueue);
 	adaptPlayerPosition();
 
@@ -62,12 +75,12 @@ CommandQueue & RunWorld::getCommandQueue()
 
 bool RunWorld::hasAlivePlayer() const
 {
-	return true;
+	return !mPlayerRunner->isReadyToDie();
 }
 
 bool RunWorld::hasPlayerReachedEnd() const
 {
-	return false;
+	return !mWorldBounds.contains(mPlayerRunner->getPosition());
 }
 
 RunWorld::~RunWorld()
@@ -114,17 +127,65 @@ void RunWorld::loadTextures()
 
 void RunWorld::adaptPlayerPosition()
 {
+	sf::FloatRect viewBounds = getViewBounds();
+	const float borderDistance = 40.f;
+
+	sf::Vector2f position = mPlayerRunner->getPosition();
+	position.x = std::max(position.x, viewBounds.left + borderDistance);
+	position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
+	position.y = std::max(position.y, viewBounds.top + borderDistance);
+	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
+	mPlayerRunner->setPosition(position);
 
 }
 
-void RunWorld::adaptPlayerVelocity()
+void RunWorld::adaptPlayerVelocity(sf::Time deltaTime)
 {
+	//TODO: possibly add gravity here
 
+	// Add scrolling velocity
+	mPlayerRunner->applyAcceleration(deltaTime);
+}
+
+bool matchesCategories(SceneNode::Pair& colliders, Category::RunType type1, Category::RunType type2)
+{
+	unsigned int category1 = colliders.first->getCategory();
+	unsigned int category2 = colliders.second->getCategory();
+
+	// Make sure first pair entry has category type1 and second has type2
+	if (type1 & category1 && type2 & category2)
+	{
+		return true;
+	}
+	else if (type1 & category2 && type2 & category1)
+	{
+		std::swap(colliders.first, colliders.second);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void RunWorld::handleCollisions()
 {
+	std::set<SceneNode::Pair> collisionPairs;
+	mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
 
+	FOREACH(SceneNode::Pair pair, collisionPairs)
+	{
+		if (matchesCategories(pair, Category::Run_Player, Category::Run_Prop))
+		{
+			auto& player = static_cast<INFINITYRUNNER::Actor&>(*pair.first);
+			auto& enemy = static_cast<INFINITYRUNNER::Obstruction&>(*pair.second);
+
+			// Collision: Player damage = enemy's remaining HP
+			player.damageHealth(enemy.getDamage());
+			enemy.killSelf();
+		}
+
+	}
 }
 
 void RunWorld::loadBuildings()
@@ -198,6 +259,41 @@ void RunWorld::buildScene()
 	loadBuildings();
 	loadBuildings();
 
+	//PLAYER
+	std::unique_ptr<INFINITYRUNNER::Runner> player(new INFINITYRUNNER::Runner(INFINITYRUNNER::Runner::Character::Professor, mTextures, mFonts));
+	mPlayerRunner = player.get();
+	mPlayerRunner->setPosition(mSpawnPosition);
+	mSceneLayers[mSpawnLayer]->attachChild(std::move(player));
+
+	placeObstructions();
+}
+
+void RunWorld::placeObstructions()
+{
+}
+
+void RunWorld::placeObstruction(INFINITYRUNNER::Obstruction::ObjType type, float rX, float rY, Layer spawnLayer)
+{
+	ObstaclePoint gen(type, mSpawnPosition.x + rX, mSpawnPosition.y - rY, spawnLayer);
+	mObstacleGenerators.push_back(gen);
+}
+
+void RunWorld::generateObstructions()
+{
+	while (!mObstacleGenerators.empty()
+		&& mObstacleGenerators.back().originX > getLevelBounds().left)
+	{
+		ObstaclePoint gen = mObstacleGenerators.back();
+
+		std::unique_ptr<INFINITYRUNNER::Obstruction> enemy(new INFINITYRUNNER::Obstruction(gen.objType, mTextures, mFonts));
+		enemy->setPosition(gen.originX, gen.originY);
+		//enemy->setRotation(180.f);
+
+		mSceneLayers[gen.originLayer]->attachChild(std::move(enemy));
+
+		// Enemy is spawned, remove from the list to spawn
+		mObstacleGenerators.pop_back();
+	}
 }
 
 void RunWorld::destroyEntitiesOutsideView()

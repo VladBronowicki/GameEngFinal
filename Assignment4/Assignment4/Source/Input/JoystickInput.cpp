@@ -23,7 +23,8 @@ INFINITYRUNNER::JoystickInput::JoystickInput()
 	initializeActions();
 
 	// assign categories
-	//TODO: create categories for new game
+	FOREACH(auto& pair, mActionBinding)
+		pair.second.category = Category::Run_Player;
 }
 
 void INFINITYRUNNER::JoystickInput::handleInput(const sf::Event& event, CommandQueue& commands)

@@ -126,7 +126,7 @@ void SettingsState::addDefaultButtonLabel(INFINITYRUNNER::DefaultInput::Action a
 {
 	//KEYBOARD
 	mDefaultBindingButtons[action] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	mDefaultBindingButtons[action]->setPosition(50.f, y);
+	mDefaultBindingButtons[action]->setPosition(50.f + float(action * 50), y);
 	mDefaultBindingButtons[action]->setText(text);
 	mDefaultBindingButtons[action]->setToggle(true);
 
